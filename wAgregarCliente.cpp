@@ -18,6 +18,9 @@ wAgregarCliente::wAgregarCliente(wxWindow * parent, int i,BaseUsuarios *bu) : po
 		emailCliente->SetValue(base_usuarios->verCliente(i).verEmail());
 		fecha f(base_usuarios->verCliente(i).verFechaNac());
 		fechaNacCliente->SetValue(f.verAnio());
+		diaChoice->SetSelection(string_to_int(f.verDia())-1);
+		mesChoice->SetSelection(string_to_int(f.verMes())-1);
+		
 	}
 }
 

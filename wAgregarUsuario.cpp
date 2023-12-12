@@ -20,6 +20,8 @@ wAgregarUsuario::wAgregarUsuario(wxWindow *parent,BaseUsuarios *bu,fecha *f,Usua
 		fecha f(user->verFechaNac()); /// concatenacion de la fecha, lo que hace la clase fecha es "disolver la fecha"
 		
 		fechaNacUser->SetValue(f.verAnio());
+		diaChoice->SetSelection(string_to_int(f.verDia())-1);
+		mesChoice->SetSelection(string_to_int(f.verMes())-1);
 	}
 }
 
