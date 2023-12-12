@@ -558,7 +558,7 @@ class ventanaProductosVendidos : public wxDialog
 
 	public:
 
-		ventanaProductosVendidos( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Productos vendidos"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 353,271 ), long style = wxDEFAULT_DIALOG_STYLE );
+		ventanaProductosVendidos( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Productos vendidos"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 411,282 ), long style = wxDEFAULT_DIALOG_STYLE );
 
 		~ventanaProductosVendidos();
 

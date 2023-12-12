@@ -37,9 +37,14 @@ public:
 	string verEmpleado();
 	/// carrito de venta
 	bool agregarProductoVenta(Producto &p, float n);
-	bool agregarProductoVenta(Producto &p);
-	bool agregarProductoVenta(int codigo, float n);
+//	bool agregarProductoVenta(Producto &p);
+	
+	
+	
+	void agregarProductoVenta(int codigo, float n);
 	bool agregarProductoVenta(int codigo);
+	
+	
 	bool cambiarCantidad(int i,float cantidad);
 	bool cambiarCantidad_Codigo(int cod,float cantidad);
 	void eliminarProductoDeCarrito(int i);

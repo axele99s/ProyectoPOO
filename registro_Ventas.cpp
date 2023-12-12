@@ -4,6 +4,8 @@
 #include <iostream>
 #include "string_conv.h"
 #include "validaciones.h"
+//#include "funcionesExtas.h"
+#include <algorithm>
 using namespace std;
 
 /// Constructor
@@ -44,7 +46,9 @@ void registro_Ventas::cargarHistorialVentas ( ) {
 			break;
 		svr_vector.push_back(vectorSVR);
 		
+		
 	}
+	reverse(svr_vector.begin(),svr_vector.end());
 }
 
 
@@ -119,20 +123,20 @@ string registro_Ventas::randomNroTransaccion ( ) {
 
 
 
-vector<structVentaRealizada> registro_Ventas::buscarPorFecha (string fecha) {
-	vector<structVentaRealizada> svr;
-	for(size_t i=0;i<svr_vector.size();i++) { 
-		
-		string f = svr_vector[i].fecha_de_venta; 
-		string fecha_temp = convertirFecha(f); 		/// la paso a un formato para el filtro 
-		if((fecha_temp).find(fecha)!=string::npos) {
-			svr.push_back(svr_vector[i]);
-		}
-	}
-	
-	
-	return svr;
-}
+//vector<structVentaRealizada> registro_Ventas::buscarPorFecha (string fecha) {
+//	vector<structVentaRealizada> svr;
+//	for(size_t i=0;i<svr_vector.size();i++) { 
+//		
+//		string f = svr_vector[i].fecha_de_venta; 
+//		string fecha_temp = convertirFecha(f); 		/// la paso a un formato para el filtro 
+//		if((fecha_temp).find(fecha)!=string::npos) {
+//			svr.push_back(svr_vector[i]);
+//		}
+//	}
+//	
+//	
+//	return svr;
+//}
 
 vector<structVentaRealizada> registro_Ventas::buscarPorTransaccion (string trac) {
 	vector<structVentaRealizada> svr;
@@ -147,20 +151,6 @@ vector<structVentaRealizada> registro_Ventas::buscarPorTransaccion (string trac)
 	return svr;
 }
 
-//vector<structVentaRealizada> registro_Ventas::buscarPorHora (string hora) {
-//	vector<structVentaRealizada> svr;
-//	for(size_t i=0;i<svr_vector.size();i++) { 
-//		
-//		string f = svr_vector[i].fecha_de_venta; 
-//		string hora_temp = convertirHora(f); 		/// la paso a un formato para el filtro 
-//		if((hora_temp).find(hora)!=string::npos) {
-//			svr.push_back(svr_vector[i]);
-//		}
-//	}
-//	
-//	
-//	return svr;
-//}
 
 vector<structVentaRealizada> registro_Ventas::buscarPorDia (string dia) {
 	vector<structVentaRealizada> svr;

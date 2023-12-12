@@ -51,3 +51,7 @@ float productoVenta::verCantidad ( ) {
 	return cantidad;
 }
 
+float productoVenta::verPrecio ( ) {
+	return m_p.verPrecio();
+}
+

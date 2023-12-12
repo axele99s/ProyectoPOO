@@ -11863,7 +11863,7 @@
             <property name="minimum_size"></property>
             <property name="name">ventanaProductosVendidos</property>
             <property name="pos"></property>
-            <property name="size">353,271</property>
+            <property name="size">411,282</property>
             <property name="style">wxDEFAULT_DIALOG_STYLE</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="title">Productos vendidos</property>
@@ -11914,9 +11914,9 @@
                                 <property name="close_button">1</property>
                                 <property name="col_label_horiz_alignment">wxALIGN_CENTER</property>
                                 <property name="col_label_size"></property>
-                                <property name="col_label_values">&quot;Producto&quot; &quot;Cantidad&quot; &quot;Codigo&quot;</property>
+                                <property name="col_label_values">&quot;Producto&quot; &quot;Cantidad&quot; &quot;Precio&quot; &quot;Codigo&quot;</property>
                                 <property name="col_label_vert_alignment">wxALIGN_CENTER</property>
-                                <property name="cols">3</property>
+                                <property name="cols">4</property>
                                 <property name="column_sizes">91,108,93</property>
                                 <property name="context_help"></property>
                                 <property name="context_menu">1</property>

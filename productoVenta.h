@@ -11,14 +11,15 @@ class productoVenta{
 public:
 	productoVenta();
 		
-	void seleccionar_Producto(Producto &p,float cantidad); /// BORRAR?
+	void seleccionar_Producto(Producto &p,float cantidad); 
 	
 	string verNombreProducto();
+	
 	int verCodigoProducto();
 	
 	Producto verProductoSeleccionado();
 	
-	
+	float verPrecio();
 	
 	float verCantProductoSeleccionado();
 	

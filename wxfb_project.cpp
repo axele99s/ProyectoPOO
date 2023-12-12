@@ -1798,7 +1798,7 @@ ventanaProductosVendidos::ventanaProductosVendidos( wxWindow* parent, wxWindowID
 	grillaVendidos = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 
 	// Grid
-	grillaVendidos->CreateGrid( 0, 3 );
+	grillaVendidos->CreateGrid( 0, 4 );
 	grillaVendidos->EnableEditing( false );
 	grillaVendidos->EnableGridLines( true );
 	grillaVendidos->EnableDragGridSize( false );
@@ -1812,7 +1812,8 @@ ventanaProductosVendidos::ventanaProductosVendidos( wxWindow* parent, wxWindowID
 	grillaVendidos->EnableDragColSize( true );
 	grillaVendidos->SetColLabelValue( 0, wxT("Producto") );
 	grillaVendidos->SetColLabelValue( 1, wxT("Cantidad") );
-	grillaVendidos->SetColLabelValue( 2, wxT("Codigo") );
+	grillaVendidos->SetColLabelValue( 2, wxT("Precio") );
+	grillaVendidos->SetColLabelValue( 3, wxT("Codigo") );
 	grillaVendidos->SetColLabelAlignment( wxALIGN_CENTER, wxALIGN_CENTER );
 
 	// Rows

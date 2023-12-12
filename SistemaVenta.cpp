@@ -22,22 +22,16 @@ bool SistemaVenta::agregarProductoVenta (Producto & p, float n) {
 	return true;
 }
 
-bool SistemaVenta::agregarProductoVenta (int codigo, float n) {
+void SistemaVenta::agregarProductoVenta (int codigo, float n) {
 	
 	
 	Producto p = bp->verConCodigo(codigo);
 	
-//	for(size_t i=0;i<prod_venta.size();i++) { 
-//		if( prod_venta[i].verCodigoProducto() == codigo) return false;
-//	}
-	
-//	if(BaseProductos()==codigo and p.verStock()>=n and n>=0) {		
+
 		productoVenta pV;
 		pV.seleccionar_Producto(p,n);
 		prod_venta.push_back(pV);
-		return true;
-//	}
-	return false;
+	
 }
 
 
@@ -74,10 +68,18 @@ bool SistemaVenta::agregarClienteVenta (int num) {
 }
 
 string SistemaVenta::carrito ( ) {
+	
+	
 	if(prod_venta.size()>0) {
 		string carrito="";
 		for(size_t i=0;i<prod_venta.size();i++) { 
-			carrito+= prod_venta[i].verNombreProducto() + " ("+ float_to_str(prod_venta[i].verCantidad())+")" + "[" + int_to_str(prod_venta[i].verCodigoProducto())+ "]" + "\n";
+			
+			float precio = prod_venta[i].verCantidad() * prod_venta[i].verPrecio(); 
+			carrito+= prod_venta[i].verNombreProducto() + 
+				" ("+ float_to_str(prod_venta[i].verCantidad())+")" + 
+				"[" + int_to_str(prod_venta[i].verCodigoProducto())+ "]" + 
+				"{" + float_to_str(precio)+ "}" + 
+				"\n";
 		}
 	return carrito;
 	}
@@ -117,25 +119,7 @@ int SistemaVenta::cantProdCarrito ( ) {
 	return prod_venta.size();
 }
 
-bool SistemaVenta::agregarProductoVenta (Producto & p) {
-	
-}
 
-//bool SistemaVenta::agregarProductoVenta (int codigo) {
-//	Producto p = bp->verConCodigo(codigo);
-//	
-//	for(size_t i=0;i<prod_venta.size();i++) { 
-//		if( prod_venta[i].verCodigoProducto() == codigo) return false;
-//	}
-//	
-//	if(BaseProductos() == codigo) {		
-//		productoVenta pV;
-//		pV.seleccionar_Producto(p,0);
-//		prod_venta.push_back(pV);
-//		return true;
-//	}
-//	return false;
-//}
 
 Producto SistemaVenta::verProductoCarrito (int i) {
 	return prod_venta[i].verProductoSeleccionado();

@@ -7,14 +7,7 @@
 #include "funcionesExtas.h"
 using namespace std;
 
-struct structProducto{
-	/// Datos del producto
-	char nombre_prod[256];
-	int cod_prod;
-	
-	/// Cantidad unitaria que se vendido de UN producto (2 chocolates por ejemplo)
-	float cantidad_unit;
-};
+
 
 
 

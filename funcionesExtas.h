@@ -74,21 +74,21 @@ inline structVentaRealizada pasarAStruct(string nombre_cantidad,string fec,strin
 
 /// Funcion para calcular la cantidad de saltos de linea
 	
-inline int CantidadSaltos(string str){
-	int c=0;
-	for(size_t i=0;i<str.size();i++) { 
-		if(str[i] == '\n') c++;
+//inline int CantidadSaltos(string str){
+//	int c=0;
+//	for(size_t i=0;i<str.size();i++) { 
+//		if(str[i] == '\n') c++;
+//	}
+//	return c;	
+//}
+inline string gen_random(const int len) {
+	static const char alphanum[] = "abcdefghijklmnopqrstuvwxyz";
+	string tmp_s;
+	tmp_s.reserve(len);
+		
+	for (int i = 0; i < len; ++i) {
+		tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
 	}
-	return c;	
+		
+	return tmp_s;
 }
-	inline string gen_random(const int len) {
-		static const char alphanum[] = "abcdefghijklmnopqrstuvwxyz";
-		string tmp_s;
-		tmp_s.reserve(len);
-		
-		for (int i = 0; i < len; ++i) {
-			tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
-		}
-		
-		return tmp_s;
-	}
