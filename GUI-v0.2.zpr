@@ -87,7 +87,7 @@ path=wRealizarVenta.cpp
 cursor=148:22
 [source]
 path=wEmpleados.cpp
-cursor=43:1
+cursor=64:78
 open=true
 [source]
 path=wAgregarProducto.cpp
