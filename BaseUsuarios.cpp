@@ -77,6 +77,15 @@ int BaseUsuarios::verPosCliente (int codigo) {
 	}
 }
 
+Cliente BaseUsuarios::verClientePorDNI (int dni) {
+	for(size_t i=0;i<vector_Clientes.size();i++) { 
+		
+		if(vector_Clientes[i].verDNI() == dni) return vector_Clientes[i];
+		
+	}
+	return Cliente();
+}
+
 ///------------------- Setter Cliente
 
 bool BaseUsuarios::ModificarCliente (int i, Cliente & cc) {
@@ -242,6 +251,19 @@ Usuario BaseUsuarios::verUsuario (string username) {
 }
 
 /// Setters Usuarios
+
+bool BaseUsuarios::esElMismo(int i, Usuario & uu){
+	for(size_t j=0;j<vector_Usuarios.size();j++) { 
+		
+		if(vector_Usuarios[j].verNombreUsuario()== uu.verNombreUsuario() and i!=j) {
+			
+			return false;
+		}
+	}
+	return true;
+}
+
+
 bool BaseUsuarios::ModificarUsuario (int i, Usuario & uu) {
 	
 	for(size_t j=0;j<vector_Usuarios.size();j++) { 
@@ -424,12 +446,6 @@ vector<Usuario> BaseUsuarios::buscarPorFecha (string fecha) {
 
 
 
-Cliente BaseUsuarios::verClientePorDNI (int dni) {
-	for(size_t i=0;i<vector_Clientes.size();i++) { 
-		
-		if(vector_Clientes[i].verDNI() == dni) return vector_Clientes[i];
-		
-	}
-	return Cliente();
-}
+
+
 

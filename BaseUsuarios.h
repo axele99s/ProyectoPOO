@@ -41,7 +41,6 @@ public:
 	bool check(Cliente &c); /// Lo mismo en este, con cliente
 	
 	
-	
 	/// ver la cantidad del vector de cada uno
 	int VerCantUsuarios();
 	int VerCantClientes();
@@ -51,7 +50,7 @@ public:
 	Usuario verUsuario(int i); /// Devuelve un usuario con la posicion i
 	Usuario verUsuario(string username);
 	int verPosUsuario(Usuario &c); /// Devuelve la posicion del Usuario
-	
+	bool esElMismo(int i,Usuario &uu); /// Sirve para la validacion... al MODIFICAR usuario, revisa si no existe ni el dni ni el usuario
 	///Ver Cliente
 	Cliente verCliente(int i); 
 	int verPosCliente(Cliente &c);

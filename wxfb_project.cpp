@@ -1554,6 +1554,24 @@ ventanaAgregarUsuario::ventanaAgregarUsuario( wxWindow* parent, wxWindowID id, c
 	m_staticText316->Wrap( -1 );
 	bSizer597->Add( m_staticText316, 0, wxALL, 5 );
 
+
+	bSizer58->Add( bSizer597, 1, wxEXPAND, 5 );
+
+	wxBoxSizer* bSizer1032;
+	bSizer1032 = new wxBoxSizer( wxHORIZONTAL );
+
+	wxString diaChoiceChoices[] = { wxT("1"), wxT("2"), wxT("3"), wxT("4"), wxT("5"), wxT("6"), wxT("7"), wxT("8"), wxT("9"), wxT("10"), wxT("11"), wxT("12"), wxT("13"), wxT("14"), wxT("15"), wxT("16"), wxT("17"), wxT("18"), wxT("19"), wxT("20"), wxT("21"), wxT("22"), wxT("23"), wxT("24"), wxT("25"), wxT("26"), wxT("27"), wxT("28"), wxT("29"), wxT("30"), wxT("31") };
+	int diaChoiceNChoices = sizeof( diaChoiceChoices ) / sizeof( wxString );
+	diaChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, diaChoiceNChoices, diaChoiceChoices, 0 );
+	diaChoice->SetSelection( 0 );
+	bSizer1032->Add( diaChoice, 0, wxALL, 5 );
+
+	wxString mesChoiceChoices[] = { wxT("Enero"), wxT("Febrero"), wxT("Marzo"), wxT("Abril"), wxT("Mayo"), wxT("Junio"), wxT("Julio"), wxT("Agosto"), wxT("Septiembre"), wxT("Octubre"), wxT("Noviembre"), wxT("Diciembre") };
+	int mesChoiceNChoices = sizeof( mesChoiceChoices ) / sizeof( wxString );
+	mesChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, mesChoiceNChoices, mesChoiceChoices, 0 );
+	mesChoice->SetSelection( 0 );
+	bSizer1032->Add( mesChoice, 0, wxALL, 5 );
+
 	fechaNacUser = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	#ifdef __WXGTK__
 	if ( !fechaNacUser->HasFlag( wxTE_MULTILINE ) )
@@ -1563,10 +1581,10 @@ ventanaAgregarUsuario::ventanaAgregarUsuario( wxWindow* parent, wxWindowID id, c
 	#else
 	fechaNacUser->SetMaxLength( 10 );
 	#endif
-	bSizer597->Add( fechaNacUser, 1, wxALL, 5 );
+	bSizer1032->Add( fechaNacUser, 1, wxALL, 5 );
 
 
-	bSizer58->Add( bSizer597, 1, wxEXPAND, 5 );
+	bSizer58->Add( bSizer1032, 1, wxEXPAND, 5 );
 
 	m_staticline3 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
 	bSizer58->Add( m_staticline3, 1, wxEXPAND | wxALL, 5 );

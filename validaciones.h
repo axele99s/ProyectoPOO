@@ -108,12 +108,17 @@ inline vector<string> erroresPersona(Persona &c){
 	return errores;		
 }
 	/// al agregar
-	inline vector<string> validarUsuario(Usuario &u,BaseUsuarios *bu){
+	inline vector<string> validarUsuario(Usuario &u,BaseUsuarios *bu,int pos){
 		vector <string> errores;
 		if(u.verNombre()=="") errores.push_back("El nombre no puede estar vacio!"); 
 		if(u.verPass()=="") errores.push_back("La contraseña no puede estar en blanco!");
-		if(bu->check(u)==true) errores.push_back("El nombre de usuario ya existe!");
 		
+		
+		if(bu->check(u)==true and pos==-1) errores.push_back("El nombre de usuario ya existe!");
+		if(bu->check(u)==true and pos==-1) {errores.push_back("El dni ya existe en la base!");}
+		
+		
+		if(bu->esElMismo(pos,u)==false) errores.push_back("El nombre de usuario ya esta registado!");;
 		
 		Persona p(u.verNombre(),u.verDireccion(),u.verEmail(),u.verDNI(),u.verFechaNac(),u.verLocalidad());
 		vector<string> errores_persona = erroresPersona(p);
@@ -126,7 +131,7 @@ inline vector<string> erroresPersona(Persona &c){
 		return errores;
 		
 	}
-		/// al modificar
+		/// al modificar <----  BORRAR RRADFASDSAJMKLDSAJKLAJKLDSAJKLDSJAKLDJSAKLDJSAKLDSAKLDJSALKDJLKASDJLKSAJDLSKAJDLKASDJLKSAJDLKSADJLSKADJKLSADJLKSADJLK
 		inline vector<string> validarModificarUsuario(Usuario &u,BaseUsuarios *bu){
 			vector <string> errores;
 			if(u.verNombre()=="") errores.push_back("El nombre no puede estar vacio!"); 

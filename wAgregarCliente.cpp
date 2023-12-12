@@ -16,7 +16,6 @@ wAgregarCliente::wAgregarCliente(wxWindow * parent, int i,BaseUsuarios *bu) : po
 		direccionCliente->SetValue(base_usuarios->verCliente(i).verDireccion());
 		localidadCliente->SetValue(base_usuarios->verCliente(i).verLocalidad());
 		emailCliente->SetValue(base_usuarios->verCliente(i).verEmail());
-//		cout << 
 		fecha f(base_usuarios->verCliente(i).verFechaNac());
 		fechaNacCliente->SetValue(f.verAnio());
 	}

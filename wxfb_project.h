@@ -480,6 +480,8 @@ class ventanaAgregarUsuario : public wxDialog
 		wxStaticText* m_staticText34;
 		wxTextCtrl* dniUser;
 		wxStaticText* m_staticText316;
+		wxChoice* diaChoice;
+		wxChoice* mesChoice;
 		wxTextCtrl* fechaNacUser;
 		wxStaticLine* m_staticline3;
 		wxStaticText* userthings;
@@ -499,7 +501,7 @@ class ventanaAgregarUsuario : public wxDialog
 
 	public:
 
-		ventanaAgregarUsuario( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 303,440 ), long style = wxDEFAULT_DIALOG_STYLE );
+		ventanaAgregarUsuario( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 303,479 ), long style = wxDEFAULT_DIALOG_STYLE );
 
 		~ventanaAgregarUsuario();
 
