@@ -1249,7 +1249,7 @@ ventanaAgregarCliente::ventanaAgregarCliente( wxWindow* parent, wxWindowID id, c
 	m_staticText34->Wrap( -1 );
 	bSizer53->Add( m_staticText34, 0, wxALL, 5 );
 
-	dniCliente = new wxTextCtrl( this, wxID_ANY, wxT("8"), wxDefaultPosition, wxDefaultSize, 0 );
+	dniCliente = new wxTextCtrl( this, wxID_ANY, wxT("0"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer53->Add( dniCliente, 1, wxALL, 5 );
 
 
@@ -1541,7 +1541,7 @@ ventanaAgregarUsuario::ventanaAgregarUsuario( wxWindow* parent, wxWindowID id, c
 	m_staticText34->Wrap( -1 );
 	bSizer53->Add( m_staticText34, 0, wxALL, 5 );
 
-	dniUser = new wxTextCtrl( this, wxID_ANY, wxT("10"), wxDefaultPosition, wxDefaultSize, 0 );
+	dniUser = new wxTextCtrl( this, wxID_ANY, wxT("0"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer53->Add( dniUser, 1, wxALL, 5 );
 
 

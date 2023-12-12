@@ -58,7 +58,8 @@ void wLogin::clickBotonIniciar( wxCommandEvent& event )  {
 }
 
 void wLogin::SalirOnButtonClick( wxCommandEvent& event )  {
-	Close();
+	Close(true);
+//	EndModal(1);
 }
 
 wLogin::~wLogin() {

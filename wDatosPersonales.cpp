@@ -25,7 +25,9 @@ void wDatosPersonales::botonModificarOnButtonClick( wxCommandEvent& event )  {
 		string ss =(s.verFechaNac());
 		string m = convertirFecha(ss);
 		
-		string errores = juntar_vector_string(validarModificarUsuario(s,base_usuarios));
+		
+		
+		string errores = juntar_vector_string(validarUsuario(s,base_usuarios,pos));
 		
 		if(!errores.empty()) {
 			wxMessageBox(errores,"",wxOK);

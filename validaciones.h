@@ -113,12 +113,13 @@ inline vector<string> erroresPersona(Persona &c){
 		if(u.verNombre()=="") errores.push_back("El nombre no puede estar vacio!"); 
 		if(u.verPass()=="") errores.push_back("La contraseña no puede estar en blanco!");
 		
-		
-		if(bu->check(u)==true and pos==-1) errores.push_back("El nombre de usuario ya existe!");
+		/// Si viene para AGREGAR uno nuevo, viene con pos -1
+		if(bu->check(u)==true and pos == -1) errores.push_back("El nombre de usuario ya existe!");
 		if(bu->check(u)==true and pos==-1) {errores.push_back("El dni ya existe en la base!");}
 		
-		
-		if(bu->esElMismo(pos,u)==false) errores.push_back("El nombre de usuario ya esta registado!");;
+		/// Si viene para MODIFICAR, viene con pos
+		if(bu->esElMismo(pos,u)==false and bu->check(u)==true) {errores.push_back("El dni ya existe en la base!");}
+		if(bu->esElMismo(pos,u)==false and pos!=-1) errores.push_back("El nombre de usuario ya esta registado!");;
 		
 		Persona p(u.verNombre(),u.verDireccion(),u.verEmail(),u.verDNI(),u.verFechaNac(),u.verLocalidad());
 		vector<string> errores_persona = erroresPersona(p);
@@ -131,21 +132,6 @@ inline vector<string> erroresPersona(Persona &c){
 		return errores;
 		
 	}
-		/// al modificar <----  BORRAR RRADFASDSAJMKLDSAJKLAJKLDSAJKLDSJAKLDJSAKLDJSAKLDSAKLDJSALKDJLKASDJLKSAJDLSKAJDLKASDJLKSAJDLKSADJLSKADJKLSADJLKSADJLK
-		inline vector<string> validarModificarUsuario(Usuario &u,BaseUsuarios *bu){
-			vector <string> errores;
-			if(u.verNombre()=="") errores.push_back("El nombre no puede estar vacio!"); 
-			if(u.verPass()=="") errores.push_back("La contraseña no puede estar en blanco!");
-			Persona p(u.verNombre(),u.verDireccion(),u.verEmail(),u.verDNI(),u.verFechaNac(),u.verLocalidad());
-			vector<string> errores_persona = erroresPersona(p);
-			if(!errores_persona.empty()) {
-				for(size_t i=0;i<errores_persona.size();i++) { 
-					errores.push_back(errores_persona[i]);
-				}
-			}
-			return errores;
-			
-		}
 	
 inline vector<string>  errores_agregar_cliente(Cliente &c,BaseUsuarios *bu,int pos=-1) {
 	vector<string> errores;
