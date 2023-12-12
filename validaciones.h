@@ -7,6 +7,8 @@
 #include "BaseProductos.h"
 #include <wx/msgdlg.h>
 #include "Usuario.h"
+#include "string_conv.h"
+#include "fecha.h"
 
 /// Posibles errores al agregar una persona (cliente o usuario)
 
@@ -49,7 +51,10 @@ inline bool esFecha(string &str){
 	
 	
 	
-	return sonNumeros(convertirFecha(str)) && str.size()==8;
+	if(sonNumeros(str)==false )return false;
+	
+	if(str.size()!=8) return false;
+	return true;
 }
 //inline string convertirHora(string &str){
 //	
@@ -88,8 +93,15 @@ inline vector<string> erroresPersona(Persona &c){
 	vector<string> errores;
 	
 	string aux = c.verFechaNac();
+	
 	string fecha_nac = convertirFecha(aux);
-	if(esFecha(fecha_nac)==false) errores.push_back("Ingrese correctamente la fecha!");
+	
+	int anio = string_to_int(fecha_nac.substr(4,4));
+	fecha f;
+	if(anio>f.verAnioActual()) errores.push_back("Año incorrecto, acaso vienes del futuro?");
+	if(anio<=1900) errores.push_back("Año incorrecto, tienes mas de 100 años? Increible");
+	
+//	if(esFecha(fecha_nac)==false) errores.push_back("Ingrese correctamente la fecha!");
 	if(c.verEmail().find("@")==string::npos) errores.push_back("Email invalido!");
 	if(c.verDNI()==0) errores.push_back("El dni NO puede ser vacio ni pueden ser letras!");
 	if(c.verDNI()<=0) {	errores.push_back("DNI INEXISTENTE");}

@@ -1295,22 +1295,40 @@ ventanaAgregarCliente::ventanaAgregarCliente( wxWindow* parent, wxWindowID id, c
 	bSizer51->Add( bSizer523, 1, wxEXPAND, 5 );
 
 	wxBoxSizer* bSizer524;
-	bSizer524 = new wxBoxSizer( wxHORIZONTAL );
+	bSizer524 = new wxBoxSizer( wxVERTICAL );
 
 	m_staticText314 = new wxStaticText( this, wxID_ANY, wxT("Fecha de nacimiento"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText314->Wrap( -1 );
 	bSizer524->Add( m_staticText314, 0, wxALL, 5 );
 
+	wxBoxSizer* bSizer103;
+	bSizer103 = new wxBoxSizer( wxHORIZONTAL );
+
+	wxString diaChoiceChoices[] = { wxT("1"), wxT("2"), wxT("3"), wxT("4"), wxT("5"), wxT("6"), wxT("7"), wxT("8"), wxT("9"), wxT("10"), wxT("11"), wxT("12"), wxT("13"), wxT("14"), wxT("15"), wxT("16"), wxT("17"), wxT("18"), wxT("19"), wxT("20"), wxT("21"), wxT("22"), wxT("23"), wxT("24"), wxT("25"), wxT("26"), wxT("27"), wxT("28"), wxT("29"), wxT("30"), wxT("31") };
+	int diaChoiceNChoices = sizeof( diaChoiceChoices ) / sizeof( wxString );
+	diaChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, diaChoiceNChoices, diaChoiceChoices, 0 );
+	diaChoice->SetSelection( 0 );
+	bSizer103->Add( diaChoice, 0, wxALL, 5 );
+
+	wxString mesChoiceChoices[] = { wxT("Enero"), wxT("Febrero"), wxT("Marzo"), wxT("Abril"), wxT("Mayo"), wxT("Junio"), wxT("Julio"), wxT("Agosto"), wxT("Septiembre"), wxT("Octubre"), wxT("Noviembre"), wxT("Diciembre") };
+	int mesChoiceNChoices = sizeof( mesChoiceChoices ) / sizeof( wxString );
+	mesChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, mesChoiceNChoices, mesChoiceChoices, 0 );
+	mesChoice->SetSelection( 0 );
+	bSizer103->Add( mesChoice, 0, wxALL, 5 );
+
 	fechaNacCliente = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	#ifdef __WXGTK__
 	if ( !fechaNacCliente->HasFlag( wxTE_MULTILINE ) )
 	{
-	fechaNacCliente->SetMaxLength( 10 );
+	fechaNacCliente->SetMaxLength( 4 );
 	}
 	#else
-	fechaNacCliente->SetMaxLength( 10 );
+	fechaNacCliente->SetMaxLength( 4 );
 	#endif
-	bSizer524->Add( fechaNacCliente, 1, wxALL, 5 );
+	bSizer103->Add( fechaNacCliente, 0, wxALL, 5 );
+
+
+	bSizer524->Add( bSizer103, 1, wxEXPAND, 5 );
 
 
 	bSizer51->Add( bSizer524, 1, wxEXPAND, 5 );

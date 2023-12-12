@@ -409,6 +409,8 @@ class ventanaAgregarCliente : public wxDialog
 		wxStaticText* m_staticText313;
 		wxTextCtrl* emailCliente;
 		wxStaticText* m_staticText314;
+		wxChoice* diaChoice;
+		wxChoice* mesChoice;
 		wxTextCtrl* fechaNacCliente;
 		wxButton* AgregarCliente;
 		wxButton* volver;
@@ -421,7 +423,7 @@ class ventanaAgregarCliente : public wxDialog
 
 	public:
 
-		ventanaAgregarCliente( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 292,284 ), long style = wxDEFAULT_DIALOG_STYLE );
+		ventanaAgregarCliente( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 394,384 ), long style = wxDEFAULT_DIALOG_STYLE );
 
 		~ventanaAgregarCliente();
 

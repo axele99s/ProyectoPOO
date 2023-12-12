@@ -44,7 +44,6 @@ void wListarArticulos::GridDCLICK_cambiarCant( wxGridEvent& event )  {
 	
 	/// base producto -> producto a partir de su codigo
 	Producto p = bp->verConCodigo(string_to_int(codi));
-	cout << p.verTipo()<<endl;
 	wActualizarProducto win2(this,p,NULL,bp); /// No es solo la ventana de actualizar producto, se reutiliza para otras cosas
 	win2.ShowModal();
 	actualizarGrilla();

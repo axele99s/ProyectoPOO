@@ -16,7 +16,9 @@ wAgregarCliente::wAgregarCliente(wxWindow * parent, int i,BaseUsuarios *bu) : po
 		direccionCliente->SetValue(base_usuarios->verCliente(i).verDireccion());
 		localidadCliente->SetValue(base_usuarios->verCliente(i).verLocalidad());
 		emailCliente->SetValue(base_usuarios->verCliente(i).verEmail());
-		fechaNacCliente->SetValue(base_usuarios->verCliente(i).verFechaNac());
+//		cout << 
+		fecha f(base_usuarios->verCliente(i).verFechaNac());
+		fechaNacCliente->SetValue(f.verAnio());
 	}
 }
 
@@ -44,12 +46,19 @@ void wAgregarCliente::AgregarClienteOnButtonClick( wxCommandEvent& event )  {
 	/// Si se hace desde la ventana principal del sistema
 	/// esto es para reutilizar clase de añadir/edit cliente
 	
+	
+	string dia = int_to_str(diaChoice->GetCurrentSelection()+1);
+	if(dia.size()==1) dia.insert(0,"0");
+	string mes = int_to_str(mesChoice->GetCurrentSelection()+1);
+	if(mes.size()==1) mes.insert(0,"0");
+	
+	string fecha_nacimiento = dia+"/"+mes+"/"+ wx_to_std(fechaNacCliente->GetValue());
+	
+	
 	string nombre = wx_to_std(nombreCliente->GetValue());
 	string dir= wx_to_std(direccionCliente->GetValue());	
 	string loc= wx_to_std(localidadCliente->GetValue());	
 	string mail= wx_to_std(emailCliente->GetValue());	
-	string fechanac= wx_to_std(fechaNacCliente->GetValue());	
-	
 	
 	int dni=-1;
 	if(dniCliente->GetValue() !="") {
@@ -57,8 +66,7 @@ void wAgregarCliente::AgregarClienteOnButtonClick( wxCommandEvent& event )  {
 	}
 	
 	
-	Cliente c(nombre,dni,dir,loc,mail,fechanac);
-	
+	Cliente c(nombre,dni,dir,loc,mail,fecha_nacimiento);
 	
 	/// -1 = agregar nuevo cliente
 	if(pos==-1) {
@@ -77,12 +85,12 @@ void wAgregarCliente::AgregarClienteOnButtonClick( wxCommandEvent& event )  {
 	/// cualquier otro caso, es modificar
 	else {
 		
+			
 		string errores = juntar_vector_string(errores_agregar_cliente(c,base_usuarios,1)); /// copio los errores (si es q los hay)
 		if(errores.empty()) {
 			
 			
 			c.setCodigoCliente(base_usuarios->verCliente(pos).verCodigoCliente()); /// VER!!!!!!
-			
 			if(base_usuarios->ModificarCliente(pos,c))
 				wxMessageBox("Se ha modificado al cliente!","",wxOK);
 			else wxMessageBox("El dni ya esta registrado!","",wxOK);

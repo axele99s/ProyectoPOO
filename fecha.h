@@ -23,6 +23,7 @@ public:
 	void setMes(string mes);
 	void setAnio(string anio);
 	
+	int verAnioActual();
 	string verDia();
 	string verMes();
 	string verAnio();
