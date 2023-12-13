@@ -7,7 +7,7 @@ class Producto {
 private:
 	string nombre_producto="", descripcion="";
 	int tipo, codigo_producto=-1;
-	float precio_producto=0.0, cant_stock=0.5;
+	float precio_producto=0.0, cant_stock=0.0;
 	float descuento=0.0;
 public:
 	

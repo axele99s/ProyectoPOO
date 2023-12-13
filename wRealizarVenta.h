@@ -16,6 +16,7 @@ private:
 	fecha *m_fecha;
 	registro_Ventas * registro;
 	Login *log;
+	vector<Producto> enStock;
 protected:
 	void barraBuscadorVentaOnText( wxCommandEvent& event )  override;
 	void agregarCarritoEnter( wxMouseEvent& event )  override;

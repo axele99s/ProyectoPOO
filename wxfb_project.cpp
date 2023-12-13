@@ -701,7 +701,7 @@ ventanaListaArticulos::ventanaListaArticulos( wxWindow* parent, wxWindowID id, c
 	// Columns
 	listaArticulosGrid->SetColSize( 0, 150 );
 	listaArticulosGrid->EnableDragColMove( false );
-	listaArticulosGrid->EnableDragColSize( true );
+	listaArticulosGrid->EnableDragColSize( false );
 	listaArticulosGrid->SetColLabelValue( 0, wxT("Nombre producto") );
 	listaArticulosGrid->SetColLabelValue( 1, wxT("Codigo") );
 	listaArticulosGrid->SetColLabelValue( 2, wxT("Precio") );

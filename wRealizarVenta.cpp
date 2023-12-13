@@ -6,7 +6,7 @@
 wRealizarVenta::wRealizarVenta(wxWindow *parent,BaseProductos *base,SistemaVenta *sv
 							   ,fecha *f,registro_Ventas *reg, Login *l) 
 	: log(l),registro(reg),m_fecha(f),ventanaRealizarVenta(parent),bp(base),sis_ven(sv) {
-	vector<Producto> enStock = bp->obtenerProductosEnStock();
+	enStock = bp->obtenerProductosEnStock();
 	
 	actualizarGrillaDisponibles(enStock);
 	
@@ -14,13 +14,19 @@ wRealizarVenta::wRealizarVenta(wxWindow *parent,BaseProductos *base,SistemaVenta
 	grillaCarrito->DisableCellEditControl();
 }
 
+
+
+
+
 void wRealizarVenta::barraBuscadorVentaOnText( wxCommandEvent& event )  {
 	string buscador = wx_to_std(barraBuscadorVenta->GetValue());
 	if(sonLetras(buscador)==true) {
 		
 		vector<Producto> vectorTemp = bp->buscarPorNombre(buscador);
 		
-		actualizarGrillaCarritoFiltro(vectorTemp);
+		
+		
+		actualizarGrillaCarritoFiltro(vectorTemp); /// No es la del carrito sino la del buscador
 		
 		
 	}
@@ -29,14 +35,17 @@ void wRealizarVenta::barraBuscadorVentaOnText( wxCommandEvent& event )  {
 		
 		if(sonNumeros(buscador)==true) {
 			
-			vector<Producto> vectorTemp = bp->buscarPorCodigo(buscador);
-			actualizarGrillaCarritoFiltro(vectorTemp);
+			vector<Producto> vectorTemp = bp->buscarPorCodigo(buscador); 
+			
+			actualizarGrillaCarritoFiltro(vectorTemp);/// No es la del carrito sino la del buscador
 			
 		}
 		
 		
 		
 	}
+	if(barraBuscadorVenta->IsEmpty())actualizarGrillaDisponibles(enStock);
+	
 }
 
 void wRealizarVenta::agregarCarritoEnter( wxMouseEvent& event )  {
@@ -58,6 +67,7 @@ void wRealizarVenta::celdaLeftDClick( wxGridEvent& event )  {
 	
 	if(sis_ven->estaEnCarrito(p.verCodigoProducto()) == true ) wxMessageBox(c_to_wx("El producto ya se encuentra en el carrito!"),"Error",wxOK);
 	else {
+		
 		wActualizarProducto win2(this,p,sis_ven,bp);
 		win2.ShowModal();
 		actualizarGrillaCarrito();
@@ -162,19 +172,18 @@ void wRealizarVenta::actualizarGrillaCarrito ( ) {
 	//	grillaCarrito->Refresh();
 	grillaCarrito->AppendRows(sis_ven->cantProdCarrito());
 	for(int i=0;i<sis_ven->cantProdCarrito();i++) { 
-		if(bp->verProducto(i).verStock()>0) {
+		
 			grillaCarrito->SetCellValue(i,0,sis_ven->verProductoCarrito(i).verNombreProducto());
 			grillaCarrito->SetCellValue(i,1,std_to_wx(float_to_str(sis_ven->verCant(i))));
+//			if(grillaCarrito->GetCellValue(i,1)!="")sis_ven->cambiarCantidad(i,string_to_float(wx_to_std(grillaCarrito->GetCellValue(i,1))));
 			grillaCarrito->SetCellValue(i,2,std_to_wx(float_to_str(sis_ven->verProductoCarrito(i).verPrecio())));
 			
 			
 			grillaCarrito->SetCellValue(i,4,std_to_wx(float_to_str(sis_ven->calcularPrecio(i))));
 			
 			if(bp->verProducto(i).verDescuento()==0) grillaCarrito->SetCellValue(i,3,"Sin descuento");
-			else grillaCarrito->SetCellValue(i,3,std_to_wx(float_to_str(sis_ven->verProductoCarrito(i).verDescuento())));
-			if(grillaCarrito->GetCellValue(i,1)!="")sis_ven->cambiarCantidad(i,string_to_float(wx_to_std(grillaCarrito->GetCellValue(i,1))));
+			else 									grillaCarrito->SetCellValue(i,3,std_to_wx(float_to_str(sis_ven->verProductoCarrito(i).verDescuento())));
 			
-		}
 		
 	}
 	
@@ -192,7 +201,27 @@ void wRealizarVenta::actualizarGrillaDisponibles (vector<Producto> & v) {
 	}
 }
 
+void limpiarSinStock(vector<Producto> & p) {
+	vector<Producto> p_temp;
+	for(size_t i=0;i<p.size();i++) { 
+		
+		if(p[i].verStock()>0) {
+			p_temp.push_back(p[i]);
+		}
+		
+	}
+	p.clear();
+	p = p_temp;
+	p_temp.clear();
+}
+
+
+
 void wRealizarVenta::actualizarGrillaCarritoFiltro (vector<Producto> & p) {
+	
+	limpiarSinStock(p);
+	
+	
 	if(grillaProductosVenta->GetNumberRows()>=1)grillaProductosVenta->DeleteRows(0,bp->sizeVectProd()); ///remueve las grillas
 	grillaProductosVenta->AppendRows(p.size());
 	for(int i=0;i<p.size();i++) { 
@@ -200,11 +229,9 @@ void wRealizarVenta::actualizarGrillaCarritoFiltro (vector<Producto> & p) {
 		/// Si hay un producto SIN stock no lo muestro
 		/// porque este filtro solo sirve para ver el nombre de productos
 		/// 
-		if(p[i].verStock()>0){ 
 			
 			grillaProductosVenta->SetCellValue(i,0,p[i].verNombreProducto());
 			grillaProductosVenta->SetCellValue(i,1,std_to_wx(int_to_str(p[i].verCodigoProducto())));
-		}
 		
 		
 	}

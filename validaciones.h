@@ -115,7 +115,7 @@ inline vector<string> erroresPersona(Persona &c){
 		
 		/// Si viene para AGREGAR uno nuevo, viene con pos -1
 		if(bu->check(u)==true and pos == -1) errores.push_back("El nombre de usuario ya existe!");
-		if(bu->check(u)==true and pos==-1) {errores.push_back("El dni ya existe en la base!");}
+		if(pos==-1 and bu->esElMismo(pos,u)==true) {errores.push_back("El dni ya existe en la base!");}
 		
 		/// Si viene para MODIFICAR, viene con pos
 		if(bu->esElMismo(pos,u)==false and bu->check(u)==true) {errores.push_back("El dni ya existe en la base!");}
@@ -174,7 +174,7 @@ inline vector<string> ValidarAgregadoProducto(Producto &p,BaseProductos *bp) {
 	if(p.verNombreProducto().empty()) v.push_back("El Nombre no puede estar vacio");
 	if(p.verStock() < 0) v.push_back("El stock no puede ser <0!");
 	if(p.verPrecio() < 0) v.push_back("El precio no puede ser <0!");
-	
+	if (p.verDescuento()<0) v.push_back("El descuendo deber ser >=0");
 //	for(size_t i=0;i<bp->sizeVectProd();i++) { 
 //		if(p.verNombreProducto() == bp->verProducto(i).verNombreProducto()) {
 //			v.push_back("El nombre del producto YA EXISTE!");
@@ -196,7 +196,7 @@ inline vector<string> ValidarAgregadoCarrito(Producto &p,BaseProductos *bp) {
 }
 
 inline bool ValidarAgregado(Producto &p,BaseProductos *bp){
-	vector<string> v = ValidarAgregadoProducto(p,bp);
+	vector<string> v =	 ValidarAgregadoProducto(p,bp);
 	if(p.verNombreProducto()!="" && p.verPrecio()>=0 && p.verStock()>=0 && v.size()==0) return true;
 	return false; 
 }
