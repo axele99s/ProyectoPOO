@@ -91,20 +91,15 @@ inline bool sonLetras(string str){
 }
 inline vector<string> erroresPersona(Persona &c){
 	vector<string> errores;
-	
-	string aux = c.verFechaNac();
-	
-	string fecha_nac = convertirFecha(aux);
-	
-	int anio = string_to_int(fecha_nac.substr(4,4));
 	fecha f;
-	if(anio>f.verAnioActual()) errores.push_back("Año incorrecto, acaso vienes del futuro?");
-	if(anio<=1900) errores.push_back("Año incorrecto, tienes mas de 100 años? Increible");
+	f.fecha_actual();
+	if(c.verAnio()>f.verAnioActual()) errores.push_back("Año incorrecto, acaso vienes del futuro?");
+	if(c.verAnio()<=1900) errores.push_back("Año incorrecto, tienes mas de 100 años? Increible");
 	
-//	if(esFecha(fecha_nac)==false) errores.push_back("Ingrese correctamente la fecha!");
+	
+	
 	if(c.verEmail().find("@")==string::npos) errores.push_back("Email invalido!");
-	if(c.verDNI()==0) errores.push_back("El dni NO puede ser vacio ni pueden ser letras!");
-	if(c.verDNI()<=0) {	errores.push_back("DNI INEXISTENTE");}
+	if(c.verDNI()<=0) errores.push_back("dni incorrecto!");
 	return errores;		
 }
 	/// al agregar
@@ -114,14 +109,16 @@ inline vector<string> erroresPersona(Persona &c){
 		if(u.verPass()=="") errores.push_back("La contraseña no puede estar en blanco!");
 		
 		/// Si viene para AGREGAR uno nuevo, viene con pos -1
-		if(bu->check(u)==true and pos == -1) errores.push_back("El nombre de usuario ya existe!");
-		if(pos==-1 and bu->esElMismo(pos,u)==true) {errores.push_back("El dni ya existe en la base!");}
+//		if(pos == -1 and bu->checkPorUser(u)==true) {errores.push_back("El nombre de usuario ya existe!");}
+		if(pos==-1 and bu->CheckPorDNI(u)==true ){errores.push_back("El dni ya esta registrado!");}
+		
 		
 		/// Si viene para MODIFICAR, viene con pos
-		if(bu->esElMismo(pos,u)==false and bu->check(u)==true) {errores.push_back("El dni ya existe en la base!");}
-		if(bu->esElMismo(pos,u)==false and pos!=-1) errores.push_back("El nombre de usuario ya esta registado!");;
+//		if(bu->esElMismo(pos,u)==false and bu->CheckPorDNI(u)==true) {errores.push_back("El dni ya existe en la base!");}
+		if(bu->esElMismo(pos,u)==false and bu->checkPorUser(u)==true) errores.push_back("El nombre de usuario ya esta registado!");;
 		
-		Persona p(u.verNombre(),u.verDireccion(),u.verEmail(),u.verDNI(),u.verFechaNac(),u.verLocalidad());
+		
+		Persona p(u.verNombre(),u.verDireccion(),u.verEmail(),u.verDNI(),u.verLocalidad(),u.verDia(),u.verMes(),u.verAnio());
 		vector<string> errores_persona = erroresPersona(p);
 		if(!errores_persona.empty()) {
 			for(size_t i=0;i<errores_persona.size();i++) { 
@@ -139,7 +136,7 @@ inline vector<string>  errores_agregar_cliente(Cliente &c,BaseUsuarios *bu,int p
 		errores.push_back("El nombre debe no estar vacio! Tampoco pueden ser numeros! ");
 	}
 	if(bu->check(c)==true and pos==-1) {errores.push_back("El dni ya existe en la base!");}
-	Persona p(c.verNombre(),c.verDireccion(),c.verEmail(),c.verDNI(),c.verFechaNac(),c.verLocalidad());
+	Persona p(c.verNombre(),c.verDireccion(),c.verEmail(),c.verDNI(),c.verFechaNac(),c.verDia(),c.verMes(),c.verAnio());
 	vector<string> errores_persona = erroresPersona(p);
 	if(!errores_persona.empty()) {
 		for(size_t i=0;i<errores_persona.size();i++) { 

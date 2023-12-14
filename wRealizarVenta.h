@@ -17,6 +17,7 @@ private:
 	registro_Ventas * registro;
 	Login *log;
 	vector<Producto> enStock;
+	BaseUsuarios* base_usuarios;
 protected:
 	void barraBuscadorVentaOnText( wxCommandEvent& event )  override;
 	void agregarCarritoEnter( wxMouseEvent& event )  override;
@@ -30,7 +31,7 @@ protected:
 	void botonCancelarVentaOnButtonClick( wxCommandEvent& event )  override;
 	
 public:
-	wRealizarVenta(wxWindow *parent=NULL,BaseProductos * base=NULL,SistemaVenta *sis_ven=NULL,fecha *fe=NULL,registro_Ventas *reg=NULL,Login *l=NULL);
+	wRealizarVenta(wxWindow *parent=NULL,BaseProductos * base=NULL,SistemaVenta *sis_ven=NULL,fecha *fe=NULL,registro_Ventas *reg=NULL,Login *l=NULL,BaseUsuarios* bu=NULL);
 	void actualizarGrillaCarrito();
 	void actualizarGrillaDisponibles(vector<Producto> &v);
 	void actualizarGrillaCarritoFiltro(vector<Producto> &p); /// no es el carrito sino la grilla de productos disponibles

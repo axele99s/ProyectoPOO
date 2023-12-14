@@ -22,13 +22,12 @@
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
-#include <wx/dialog.h>
-#include <wx/menu.h>
 #include <wx/frame.h>
+#include <wx/menu.h>
 #include <wx/choice.h>
+#include <wx/dialog.h>
 #include <wx/statline.h>
 #include <wx/grid.h>
-#include <wx/bmpbuttn.h>
 #include <wx/tglbtn.h>
 #include <wx/combobox.h>
 
@@ -43,9 +42,9 @@
 #define ventanaClientesLabel 1006
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class ventanaLogin
+/// Class ventana_Login
 ///////////////////////////////////////////////////////////////////////////////
-class ventanaLogin : public wxDialog
+class ventana_Login : public wxFrame
 {
 	private:
 
@@ -68,9 +67,9 @@ class ventanaLogin : public wxDialog
 
 	public:
 
-		ventanaLogin( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
+		ventana_Login( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 310,167 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
-		~ventanaLogin();
+		~ventana_Login();
 
 };
 
@@ -168,7 +167,6 @@ class ventanaRealizarVenta : public wxDialog
 		wxGrid* grillaProductosVenta;
 		wxButton* botonAgregarProductos;
 		wxGrid* grillaCarrito;
-		wxBitmapButton* m_bpButton1;
 		wxButton* botonEliminarCarrito;
 		wxButton* clearCarrito;
 		wxStaticText* m_staticText38;
@@ -197,7 +195,7 @@ class ventanaRealizarVenta : public wxDialog
 
 	public:
 
-		ventanaRealizarVenta( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 795,596 ), long style = wxDEFAULT_DIALOG_STYLE );
+		ventanaRealizarVenta( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1069,706 ), long style = wxDEFAULT_DIALOG_STYLE );
 
 		~ventanaRealizarVenta();
 
@@ -284,7 +282,7 @@ class ventanaActualizarProducto : public wxDialog
 
 	public:
 
-		ventanaActualizarProducto( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Cambiar Cantidad"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
+		ventanaActualizarProducto( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
 
 		~ventanaActualizarProducto();
 
@@ -310,7 +308,7 @@ class ventanaHistorialVentas : public wxDialog
 		wxStaticLine* m_staticline41;
 		wxGrid* grillaRegistroVentas;
 		wxButton* eliminarVenta;
-		wxButton* vaciarRegistro;
+		wxButton* vaciarHistorial;
 
 		// Virtual event handlers, override them in your derived class
 		virtual void historialVentasBuscadorOnText( wxCommandEvent& event ) { event.Skip(); }
@@ -416,7 +414,6 @@ class ventanaAgregarCliente : public wxDialog
 		wxButton* volver;
 
 		// Virtual event handlers, override them in your derived class
-		virtual void fechaNacClienteOnText( wxCommandEvent& event ) { event.Skip(); }
 		virtual void AgregarClienteOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void volverOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 
@@ -558,7 +555,7 @@ class ventanaProductosVendidos : public wxDialog
 
 	public:
 
-		ventanaProductosVendidos( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Productos vendidos"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 411,282 ), long style = wxDEFAULT_DIALOG_STYLE );
+		ventanaProductosVendidos( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Productos vendidos"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 475,255 ), long style = wxDEFAULT_DIALOG_STYLE );
 
 		~ventanaProductosVendidos();
 

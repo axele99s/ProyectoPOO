@@ -1,9 +1,11 @@
 #include "SistemaVenta.h"
 #include "string_conv.h"
+#include "fecha.h"
 
 
-SistemaVenta::SistemaVenta (BaseProductos * baseprod, BaseUsuarios * baseuser, Login * log): bp(baseprod), bu(baseuser),l(log) {
+SistemaVenta::SistemaVenta (BaseProductos * baseprod, BaseUsuarios * baseuser, Login * log,registro_Ventas *reg): registro(reg),bp(baseprod), bu(baseuser),l(log) {
 	usuarioVendedor = l->verNombreUsuario();
+	registro->cantidadVentas();
 }	
 	
 
@@ -14,6 +16,8 @@ bool SistemaVenta::agregarProductoVenta (Producto & p, float n) {
 	for(size_t i=0;i<prod_venta.size();i++) { 
 		if(prod_venta[i].verCodigoProducto() == p.verCodigoProducto()) return false;
 	}
+	
+	
 	
 	///@ en caso contrario lo agrego al carrito
 	productoVenta pV;
@@ -34,13 +38,16 @@ void SistemaVenta::agregarProductoVenta (int codigo, float n) {
 	
 }
 
-
-void SistemaVenta::realizarVenta () {
+/// Realizar venta ACTUALIZA el stock disponible
+void SistemaVenta::confirmarVenta () {
 	for(size_t i=0;i<prod_venta.size();i++) { 
 		int codigo = prod_venta[i].verCodigoProducto();
 		float cantidad_actualizada = bp->verConCodigo(codigo).verStock() - prod_venta[i].verCantidad();
 		bp->actualizarCantidad(cantidad_actualizada,codigo);
 	}
+	
+	
+	registro->guardarVenta(prod_venta,usuarioVendedor,dniCliente,subTotal());
 
 }
 
@@ -57,13 +64,11 @@ float SistemaVenta::subTotal ( ) {
 }
 
 bool SistemaVenta::agregarClienteVenta (int num) {
-	
-	Cliente c = bu->verClientePorDNI(num);
+	Cliente c; c.setDNI(num);
 	if(bu->check(c)){
-		usuarioCliente = "Nombre: " + c.verNombre()+" \ " + " codigo cliente: " + int_to_str(c.verCodigoCliente());
+		dniCliente = num;
 		return true;
 	}
-	
 	return false;
 }
 
@@ -184,9 +189,9 @@ int SistemaVenta::verCantConCodigo (int codigo) {
 	}
 }
 
-string SistemaVenta::verCliente ( ) {
-	return usuarioCliente;
-}
+//string SistemaVenta::verCliente ( ) {
+//	return usuarioCliente;
+//}
 
 vector<productoVenta> SistemaVenta::verCarritoCompleto ( ) {
 	return prod_venta;
@@ -206,5 +211,9 @@ vector<Producto> SistemaVenta::verCarritoDeProductos ( ) {
 
 float SistemaVenta::calcularPrecio (int i) {
 	return prod_venta[i].obtenerValor();
+}
+
+int SistemaVenta::verDNICliente ( ) {
+	return dniCliente;
 }
 

@@ -6,7 +6,7 @@
 #include "SistemaVenta.h"
 #include "fecha.h"
 #include "registro_Ventas.h"
-#include "wLogin.h"
+#include "wLogeo.h"
 
 
 IMPLEMENT_APP(Application)
@@ -15,24 +15,16 @@ bool Application::OnInit() {
 	m_baseProductos = new BaseProductos();
 	m_baseUsuarios = new BaseUsuarios();
 	login = new Login(m_baseUsuarios);
-	sistema_venta = new SistemaVenta(m_baseProductos,m_baseUsuarios,login);
 	m_fecha = new fecha();
 	registro_de_ventas = new registro_Ventas();
+	sistema_venta = new SistemaVenta(m_baseProductos,m_baseUsuarios,login,registro_de_ventas);
 	base_usuarios = new BaseUsuarios();
 	
-
-//	productosVendidosHija win(NULL,"[1234]",m_baseProductos);
-//	win.ShowModal();
 	
-//	Usuario u("","","",1,"",11,"","","","");
-//	base_usuarios->AgregarUsuario(u);
-//	
-//	filtroFechaHija win(NULL,m_fecha,2);
+//	wLogin win(NULL,login,m_baseUsuarios,m_baseProductos,sistema_venta,m_fecha,registro_de_ventas);
 //	win.ShowModal();
-	
-	/// 
-	wLogin ventanaLogin(NULL,login,m_baseUsuarios,m_baseProductos,sistema_venta,m_fecha,registro_de_ventas);
-	ventanaLogin.ShowModal();
+	wLogeo *win= new wLogeo(NULL,login,m_baseUsuarios,m_baseProductos,sistema_venta,m_fecha,registro_de_ventas);
+	win->Show();
 	
 	return true;
 }

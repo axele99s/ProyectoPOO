@@ -12,36 +12,43 @@ using namespace std;
 
 
 class registro_Ventas {
+	vector<structVentaRealizada> svr_vector;
 public:
 	registro_Ventas();
-	void guardarVenta(string str,string fec,string vendedor, string cliente,float total);
+	void guardarVenta(vector<productoVenta> pv,string vendedor,int cliente,float total);
 	int cantidadVentas();
+	
+	
 	void cargarHistorialVentas();
 	void crearBinario();
 	
 	string verNroTransaccion(int i);
 	
 	structVentaRealizada verVenta(int i);
-	string verProductos(string trac);
-	
+	vector<prodsVenta> verProductos(string trac);
+	string verFechaVenta(string tranc);
+	string verFechaVenta(int i);
 	
 	void eliminarVenta(string nro);
 	void vaciarRegistro();
 	
-	string randomNroTransaccion();
 	
+	bool transaccionExistente(string);
 	
-	vector<structVentaRealizada> buscarPorFecha(string fecha);
-	vector<structVentaRealizada> buscarPorHora(string hora);
 	vector<structVentaRealizada> buscarPorTransaccion(string trac);
 	
 	vector<structVentaRealizada> buscarPorDia(string dia);
 	vector<structVentaRealizada> buscarPorMes(string mes);
 	vector<structVentaRealizada> buscarPorAnio(string anio);
 	
-private:
+	string randomNroTransaccion();
 	
-	vector<structVentaRealizada> svr_vector;
+	
+	
+//	for(size_t i=0;i<svr_vector.size();i++) { 
+//		
+//	}
+
 };
 
 #endif

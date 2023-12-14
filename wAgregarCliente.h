@@ -10,7 +10,6 @@ private:
 	int pos;
 	string padre;
 protected:
-	void fechaNacClienteOnText( wxCommandEvent& event )  override;
 	void AgregarClienteOnButtonClick( wxCommandEvent& event )  override;
 	void volverOnButtonClick( wxCommandEvent& event )  override;
 	

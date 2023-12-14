@@ -5,6 +5,7 @@
 
 wEmpleados::wEmpleados(wxWindow *parent,BaseUsuarios *bu,fecha *f) : m_fecha(f), base_usuarios(bu),ventana_Empleados(parent) {
 	actualizarGrilla();
+	grillaUsuarios->SetSelectionMode(wxGrid::wxGridSelectRows);
 }
 
 void wEmpleados::busquedaUsuarioOnText( wxCommandEvent& event )  {
@@ -19,7 +20,7 @@ void wEmpleados::busquedaUsuarioOnText( wxCommandEvent& event )  {
 	
 	/// Valido primero que el aux no este vacio y sea menor a 8 (debido a la fecha mmddaaaa)
 	/// Por ultimo que sean numeros, una fecha no pueden ser letras...
-	if(sonNumeros(aux)==true and aux.size()<=8 and !aux.empty()) {	
+	if(sonNumeros(busqueda)==true /*and/* aux.size()<=8 and !aux.empty()*/) {	
 		vector<Usuario> vu = base_usuarios->buscarPorFecha(aux);
 		actualizarGrillaFiltro(vu);
 	}
@@ -27,7 +28,7 @@ void wEmpleados::busquedaUsuarioOnText( wxCommandEvent& event )  {
 	
 	/// Busqueda por usuario
 	else {
-		vector<Usuario> vu = base_usuarios->buscarPorUser(wx_to_std(busquedaUsuario->GetValue()));
+		vector<Usuario> vu = base_usuarios->buscarPorUser(wx_to_std(busqueda));
 		actualizarGrillaFiltro(vu);
 	}
 }

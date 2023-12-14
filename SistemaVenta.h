@@ -13,36 +13,39 @@ class SistemaVenta {
 	BaseProductos *bp;
 	BaseUsuarios *bu;
 	Login *l;
+	registro_Ventas *registro;
 	
-	
-	/// Eliminar las 2 de abajo
-	registro_Ventas rV;
-	fecha f;
+//	/// Eliminar las 2 de abajo
+//	registro_Ventas rV;
+//	fecha f;
 	
 	
 	vector<productoVenta> prod_venta; /// vector temporal de los productos que se van a vender	
-	string fecha_venta;
+//	string fecha_venta;
 	float precio_final=0;
 	
 	string usuarioVendedor= "";
-	string usuarioCliente = "Cliente final";
+	int dniCliente=0;
+	
+	
+	
+//	vector<tuple<Producto,int>> vp;
 public:
-	SistemaVenta(BaseProductos *baseprod=NULL,BaseUsuarios* baseuser=NULL,Login *log=NULL);
+	SistemaVenta(BaseProductos *baseprod=NULL,BaseUsuarios* baseuser=NULL,Login *log=NULL,registro_Ventas *reg=NULL);
 	
 	/// Agregar cliente a la venta (o cliente final)
 	bool agregarClienteVenta(int num);
 	
 	///
 	string verCliente();
+	int verDNICliente();
 	string verEmpleado();
 	/// carrito de venta
 	bool agregarProductoVenta(Producto &p, float n);
-//	bool agregarProductoVenta(Producto &p);
 	
 	
 	
 	void agregarProductoVenta(int codigo, float n);
-	bool agregarProductoVenta(int codigo);
 	
 	
 	bool cambiarCantidad(int i,float cantidad);
@@ -61,7 +64,7 @@ public:
 	int verCantConCodigo(int codigo);
 	
 	/// confirmar la venta
-	void realizarVenta();
+	void confirmarVenta(); /// actualizo el stock disponible
 	bool estaEnCarrito(int cod);
 	/// ver 
 	int cantProdCarrito();
@@ -69,6 +72,7 @@ public:
 	Producto verProductoCarrito(int i); /// <- problema?
 	
 	vector<productoVenta> verCarritoCompleto();
+	
 };
 
 #endif

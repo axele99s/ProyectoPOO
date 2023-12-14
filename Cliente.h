@@ -9,8 +9,8 @@ public:
 	
 	/// constructores
 	Cliente(){};
-	Cliente(int codigoCliente, string nombre, int dni,string dir,string loc,string mail,string fechanac);
-	Cliente(string nombre, int dni,string dir,string loc,string mail,string fechanac);
+	Cliente(int codigoCliente, string nombre, int dni,string dir,string loc,string mail,int dia,int mes,int anio);
+	Cliente(string nombre, int dni,string dir,string loc,string mail,int dia,int mes,int anio);
 	
 	/// getter / getter
 	int verCodigoCliente();

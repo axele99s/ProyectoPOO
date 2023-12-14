@@ -8,6 +8,7 @@
 
 wListarArticulos::wListarArticulos(wxWindow *parent,BaseProductos *base) : bp(base),ventanaListaArticulos(parent) {
 	actualizarGrilla();
+	listaArticulosGrid->SetSelectionMode(wxGrid::wxGridSelectRows);
 }
 
 void wListarArticulos::barraBuscarArticuloOnText( wxCommandEvent& event )  {
@@ -85,9 +86,9 @@ void wListarArticulos::actualizarGrilla ( ) {
 	for(int i=0;i<bp->sizeVectProd();i++) { 
 		listaArticulosGrid->SetCellValue(i,0,bp->verProducto(i).verNombreProducto());
 		listaArticulosGrid->SetCellValue(i,1,std_to_wx(int_to_str(bp->verProducto(i).verCodigoProducto())));
-		listaArticulosGrid->SetCellValue(i,2,std_to_wx(float_to_str(bp->verProducto(i).verPrecio())));
+		listaArticulosGrid->SetCellValue(i,2,std_to_wx("$"+float_to_str(bp->verProducto(i).verPrecio())));
 		listaArticulosGrid->SetCellValue(i,3,std_to_wx(float_to_str(bp->verProducto(i).verStock())));
-		listaArticulosGrid->SetCellValue(i,4,std_to_wx(float_to_str(bp->verProducto(i).verDescuento())));
+		listaArticulosGrid->SetCellValue(i,4,std_to_wx(float_to_str(bp->verProducto(i).verDescuento())+"%"));
 		listaArticulosGrid->SetCellValue(i,5,bp->verProducto(i).verDescripcion());
 		
 	}
@@ -100,9 +101,9 @@ void wListarArticulos::actualizarGrillaFiltros (vector<Producto> & vectorTemp) {
 	for(int i=0;i<vectorTemp.size();i++) { 
 		listaArticulosGrid->SetCellValue(i,0,vectorTemp[i].verNombreProducto());
 		listaArticulosGrid->SetCellValue(i,1,std_to_wx(int_to_str(vectorTemp[i].verCodigoProducto())));
-		listaArticulosGrid->SetCellValue(i,2,std_to_wx(int_to_str(vectorTemp[i].verPrecio())));
+		listaArticulosGrid->SetCellValue(i,2,"$"+std_to_wx(int_to_str(vectorTemp[i].verPrecio())));
 		listaArticulosGrid->SetCellValue(i,3,std_to_wx(int_to_str(vectorTemp[i].verStock())));
-		listaArticulosGrid->SetCellValue(i,4,std_to_wx(int_to_str(vectorTemp[i].verDescuento())));
+		listaArticulosGrid->SetCellValue(i,4,std_to_wx(int_to_str(vectorTemp[i].verDescuento()))+"%");
 		listaArticulosGrid->SetCellValue(i,5,vectorTemp[i].verDescripcion());
 		
 	}

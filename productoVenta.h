@@ -19,11 +19,11 @@ public:
 	
 	Producto verProductoSeleccionado();
 	
-	float verPrecio();
+	float verPrecio(); /// muestra el precio sin descuento del prod
 	
 	float verCantProductoSeleccionado();
 	
-	float obtenerValor();
+	float obtenerValor(); /// muestra el subtotal, con descuentos incluidos si los hay
 	
 	float verCantidad();
 	

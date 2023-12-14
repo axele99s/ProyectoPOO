@@ -17,16 +17,17 @@ wAgregarUsuario::wAgregarUsuario(wxWindow *parent,BaseUsuarios *bu,fecha *f,Usua
 		dniUser->SetValue(int_to_str(user->verDNI()));
 		emailUser->SetValue(user->verEmail());
 		
-		fecha f(user->verFechaNac()); /// concatenacion de la fecha, lo que hace la clase fecha es "disolver la fecha"
+//		fecha f(user->verFechaNac()); /// concatenacion de la fecha, lo que hace la clase fecha es "disolver la fecha"
 		
-		fechaNacUser->SetValue(f.verAnio());
-		diaChoice->SetSelection(string_to_int(f.verDia())-1);
-		mesChoice->SetSelection(string_to_int(f.verMes())-1);
+		fechaNacUser->SetValue(int_to_str(user->verAnio()));
+		diaChoice->SetSelection(user->verDia()-1);
+		mesChoice->SetSelection(user->verMes()-1);
 	}
 }
 
 void wAgregarUsuario::agregarUsuarioOnButtonClick( wxCommandEvent& event )  {
 	string username = wx_to_std(usuarioLabel->GetValue());
+	
 	string pass = wx_to_std(passLabel->GetValue());
 	int tipo = selectionTipoUsuario->GetCurrentSelection();
 	
@@ -38,16 +39,11 @@ void wAgregarUsuario::agregarUsuarioOnButtonClick( wxCommandEvent& event )  {
 	
 	
 	
-	string dia = int_to_str(diaChoice->GetCurrentSelection()+1);
-	if(dia.size()==1) dia.insert(0,"0");
-	string mes = int_to_str(mesChoice->GetCurrentSelection()+1);
-	if(mes.size()==1) mes.insert(0,"0");
-	
-	string fecha_nacimiento = dia+"/"+mes+"/"+ wx_to_std(fechaNacUser->GetValue());
-	
+	int dia = (diaChoice->GetCurrentSelection()+1);
+	int mes = (mesChoice->GetCurrentSelection()+1);	
+	int anio = wx_to_int(fechaNacUser->GetValue());
 	if(user==NULL) {
-		cout << "null";
-		Usuario user(username,pass,m_fecha->obtenerFecha(),tipo,nombre,dni,dir,loc,email,fecha_nacimiento);
+		Usuario user(username,pass,tipo,nombre,dni,dir,loc,email,dia,mes,anio);
 		
 		string errores = juntar_vector_string(validarUsuario(user,base_usuarios,-1));
 		if(!errores.empty()) {
@@ -55,7 +51,6 @@ void wAgregarUsuario::agregarUsuarioOnButtonClick( wxCommandEvent& event )  {
 			
 		}
 		else {
-			
 			base_usuarios->AgregarUsuario(user);
 			wxMessageBox("Usuario agregado correctamente!","",wxOK);
 			EndModal(1);
@@ -67,9 +62,9 @@ void wAgregarUsuario::agregarUsuarioOnButtonClick( wxCommandEvent& event )  {
 	
 	if(user!=NULL) {
 		int pos = base_usuarios->verPosUsuario(*user);
-		Usuario usuario(username,pass,user->verFecha(),tipo,nombre,dni,dir,loc,email,fecha_nacimiento);
+		Usuario usuario(username,pass,tipo,nombre,dni,dir,loc,email,dia,mes,anio);
+		
 		string errores = juntar_vector_string(validarUsuario(usuario,base_usuarios,pos));
-		cout << "not null";
 		if(!errores.empty()) {
 			wxMessageBox(errores,"",wxOK);
 			

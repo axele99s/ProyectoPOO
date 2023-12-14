@@ -5,28 +5,38 @@ using namespace std;
 
 class fecha {
 private:
-	string m_fecha;
-	string m_dia;
-	string m_mes;
-	string m_anio;
+	string m_fecha; /// concatenacion de todo
+	int m_dia=0;
+	int m_mes=0;
+	int m_anio=0;
+	
+	int hora=0;
+	int minuto=0;
+	int segundo=0;
 	
 public:
 	fecha();
 	fecha(string f);
-	fecha(string dia,string mes,string anio);
+	fecha(int dia,int mes,int anio);
 	string obtenerFecha();
 	string obtenerFechaConHora();
 	string verFecha();
+	string verFechaConHora();
 	bool validarFecha(string f);
 	
-	void setDia(string dia);
-	void setMes(string mes);
-	void setAnio(string anio);
+	void fecha_actual(); /// para las ventas, asi guardo un string a ints dia-mes-anio
+	
+	void setDia(int dia);
+	void setMes(int mes);
+	void setAnio(int anio);
 	
 	int verAnioActual();
-	string verDia();
-	string verMes();
-	string verAnio();
+	int verDia();
+	int verMes();
+	int verAnio();
+	int verHora();
+	int verMinuto();
+	int verSegundo();
 };
 
 #endif

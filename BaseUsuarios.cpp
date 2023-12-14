@@ -3,6 +3,7 @@
 #include "string_conv.h"
 #include "funcionesExtas.h"
 #include "validaciones.h"
+#include "fecha.h"
 
 
 
@@ -33,7 +34,7 @@ ifstream archi_clientes("Clientes.bin",ios::binary|ios::ate);
 			ClientesChar c;
 			archi_clientes.read(reinterpret_cast<char*>(&c),sizeof(c));
 			
-			vector_Clientes.push_back({c.codigo,c.nombre,c.dni,c.direccion,c.localidad,c.email,c.fecha_nac});
+			vector_Clientes.push_back({c.codigo,c.pers.nombre,c.pers.dni,c.pers.direccion,c.pers.localidad,c.pers.email,c.pers.dia,c.pers.mes,c.pers.anio});
 		}
 	}
 }
@@ -41,15 +42,22 @@ void BaseUsuarios::CrearBinarioCliente ( ) {
 	ofstream archi_clientes("Clientes.bin",ios::binary | ios::trunc);
 	for(size_t i=0;i<vector_Clientes.size();i++) { 
 		ClientesChar c;
-		strcpy(c.nombre,vector_Clientes[i].verNombre().c_str());
+		strcpy(c.pers.nombre,vector_Clientes[i].verNombre().c_str());
 		
 		
-		strcpy(c.nombre,vector_Clientes[i].verNombre().c_str());
-		strcpy(c.direccion,vector_Clientes[i].verDireccion().c_str());
-		strcpy(c.localidad,vector_Clientes[i].verLocalidad().c_str());
-		strcpy(c.email,vector_Clientes[i].verEmail().c_str());
-		strcpy(c.fecha_nac,vector_Clientes[i].verFechaNac().c_str());
-		c.dni = vector_Clientes[i].verDNI();
+		strcpy(c.pers.nombre,vector_Clientes[i].verNombre().c_str());
+		strcpy(c.pers.direccion,vector_Clientes[i].verDireccion().c_str());
+		strcpy(c.pers.localidad,vector_Clientes[i].verLocalidad().c_str());
+		strcpy(c.pers.email,vector_Clientes[i].verEmail().c_str());
+		
+//		fecha f(vector_Clientes[i].verFechaNac());
+		
+		c.pers.dia = vector_Clientes[i].verDia();
+		c.pers.mes = vector_Clientes[i].verMes();
+		c.pers.anio = vector_Clientes[i].verAnio();
+//		strcpy(c.pers.mes,vector_Clientes[i].verMes());
+//		strcpy(c.pers.anio,vector_Clientes[i].verAnio());
+		c.pers.dni = vector_Clientes[i].verDNI();
 		c.codigo = vector_Clientes[i].verCodigoCliente();
 		
 		archi_clientes.write(reinterpret_cast<char*>(&c),sizeof(c));
@@ -100,7 +108,11 @@ bool BaseUsuarios::ModificarCliente (int i, Cliente & cc) {
 	vector_Clientes[i].setDireccion(cc.verDireccion());
 	vector_Clientes[i].setLocalidad(cc.verLocalidad());
 	vector_Clientes[i].setEmail(cc.verEmail());
-	vector_Clientes[i].setFechaNac(cc.verFechaNac());
+	
+	vector_Clientes[i].setDia(cc.verDia());
+	vector_Clientes[i].setMes(cc.verMes());
+	vector_Clientes[i].setAnio(cc.verAnio());
+		
 	vector_Clientes[i].setCodigoCliente(cc.verCodigoCliente());
 	CrearBinarioCliente();
 	return true;
@@ -196,10 +208,19 @@ void BaseUsuarios::CargarBinarioUser ( ) {
 		archi_usuarios.seekg(0);
 		
 		for(int i=0;i<cant_usuarios;i++) { 
-			UsuariosChar c;
-			archi_usuarios.read(reinterpret_cast<char*>(&c),sizeof(c));
-			vector_Usuarios.push_back({c.user,c.pass,c.fecha,c.tipo,c.nombre,c.dni,c.direccion,c.localidad,c.email,c.fecha_nac});
+			UsuariosChar uc;
+			archi_usuarios.read(reinterpret_cast<char*>(&uc),sizeof(uc));
+			Usuario s(uc.user,uc.pass,uc.tipo,uc.pers.nombre,uc.pers.dni,uc.pers.direccion,uc.pers.localidad,uc.pers.email,uc.pers.dia,uc.pers.mes,uc.pers.anio);
+			s.setDia_Reg(uc.dia_reg);
+			s.setMes_Reg(uc.mes_reg);
+			s.setAnio_Reg(uc.anio_reg);
+			vector_Usuarios.push_back(s);
 		}
+	}
+	else {
+		Usuario s("admin","admin");
+		s.setTipo(1);
+		AgregarUsuario(s);
 	}
 
 }
@@ -213,16 +234,25 @@ void BaseUsuarios::CrearBinarioUser ( ) {
 		UsuariosChar u;
 		strcpy(u.user,vector_Usuarios[i].verNombreUsuario().c_str());
 		strcpy(u.pass,vector_Usuarios[i].verPass().c_str());
-		strcpy(u.fecha,vector_Usuarios[i].verFecha().c_str());
 		u.tipo = vector_Usuarios[i].verTipo();
 		
 		
-		strcpy(u.nombre,vector_Usuarios[i].verNombre().c_str());
-		strcpy(u.direccion,vector_Usuarios[i].verDireccion().c_str());
-		strcpy(u.localidad,vector_Usuarios[i].verLocalidad().c_str());
-		strcpy(u.email,vector_Usuarios[i].verEmail().c_str());
-		strcpy(u.fecha_nac,vector_Usuarios[i].verFechaNac().c_str());
-		u.dni = vector_Usuarios[i].verDNI();
+		strcpy(u.pers.nombre,vector_Usuarios[i].verNombre().c_str());
+		strcpy(u.pers.direccion,vector_Usuarios[i].verDireccion().c_str());
+		strcpy(u.pers.localidad,vector_Usuarios[i].verLocalidad().c_str());
+		strcpy(u.pers.email,vector_Usuarios[i].verEmail().c_str());
+		
+		/// fechas de nacimiento <-
+		u.pers.dia=vector_Usuarios[i].verDia();
+		u.pers.mes=vector_Usuarios[i].verMes();
+		u.pers.anio=vector_Usuarios[i].verAnio();
+		
+		/// fechas de nacimiento <-
+		u.dia_reg = vector_Usuarios[i].verDia_Reg();
+		u.mes_reg = vector_Usuarios[i].verMes_Reg();
+		u.anio_reg = vector_Usuarios[i].verAnio_Reg();
+		
+		u.pers.dni = vector_Usuarios[i].verDNI();
 		
 		archi_usuarios.write(reinterpret_cast<char*>(&u),sizeof(u));
 	}
@@ -272,14 +302,23 @@ bool BaseUsuarios::ModificarUsuario (int i, Usuario & uu) {
 	vector_Usuarios[i].setUser(uu.verNombreUsuario());
 	vector_Usuarios[i].setPass(uu.verPass());
 	vector_Usuarios[i].setTipo(uu.verTipo());
-	vector_Usuarios[i].setFecha(uu.verFecha());
 	
 	vector_Usuarios[i].setDNI(uu.verDNI());
 	vector_Usuarios[i].setNombre(uu.verNombre());
 	vector_Usuarios[i].setDireccion(uu.verDireccion());
 	vector_Usuarios[i].setLocalidad(uu.verLocalidad());
 	vector_Usuarios[i].setEmail(uu.verEmail());
-	vector_Usuarios[i].setFechaNac(uu.verFechaNac());
+	
+	/// Fecha nac
+	vector_Usuarios[i].setDia(uu.verDia());
+	vector_Usuarios[i].setMes(uu.verMes());
+	vector_Usuarios[i].setAnio(uu.verAnio());
+	
+//	/// Fecha Reg
+//	vector_Usuarios[i].setDia_Reg(uu.verDia_Reg());
+//	vector_Usuarios[i].setMes_Reg(uu.verMes_Reg());
+//	vector_Usuarios[i].setAnio_Reg(uu.verAnio_Reg());
+	
 	CrearBinarioUser();
 	return true;
 }
@@ -290,7 +329,19 @@ bool BaseUsuarios::ModificarUsuario (int i, Usuario & uu) {
 
 bool BaseUsuarios::AgregarUsuario ( Usuario &u ) {
 	/// Antes de agregar al usuario, checkeo si ya se encuentra en la base de datos
-		if(check(u)==false) {
+		if(CheckPorDNI(u)==false) {   
+			
+			
+			/// Creo la clase fecha y obtengo la fecha actual del registro,
+			/// Pasandoselo al usuario
+				fecha f;
+				f.fecha_actual();
+				u.setDia_Reg(f.verDia());
+				u.setMes_Reg(f.verMes());
+				u.setAnio_Reg(f.verAnio());
+				
+				
+				
 				vector_Usuarios.push_back(u);
 				CrearBinarioUser();
 			return true;
@@ -299,7 +350,7 @@ bool BaseUsuarios::AgregarUsuario ( Usuario &u ) {
 }
 
 
-bool BaseUsuarios::check (Usuario &u) {
+bool BaseUsuarios::checkPorUser (Usuario &u) {
 	if(vector_Usuarios.size()==0) return false;
 	int pos = verPosUsuario(u); 
 	if(pos==-1) return false;
@@ -310,7 +361,7 @@ bool BaseUsuarios::check (Usuario &u) {
 
 
 bool BaseUsuarios::EliminarUsuario (Usuario & u) {
-	if(check(u)==true) {
+	if(checkPorUser(u)==true) {
 		int pos = verPosUsuario(u);
 		auto it=vector_Usuarios.begin();
 		advance(it,pos);
@@ -420,7 +471,6 @@ vector<Usuario> BaseUsuarios::buscarPorUser (string username) {
 	for(size_t i=0;i<vector_Usuarios.size();i++) { 
 		
 		string nombre_temp = vector_Usuarios[i].verNombreUsuario(); 
-		
 		if(minuscula(nombre_temp).find(minuscula(username))!=string::npos) {vu.push_back(vector_Usuarios[i]);}
 	}
 	
@@ -448,4 +498,15 @@ vector<Usuario> BaseUsuarios::buscarPorFecha (string fecha) {
 
 
 
+
+bool BaseUsuarios::usuarioExistente (Usuario & uu) {
+//	if()
+}
+
+bool BaseUsuarios::CheckPorDNI (Usuario & u) {
+	for(size_t i=0;i<vector_Usuarios.size();i++) { 
+		if(vector_Usuarios[i].verDNI() == u.verDNI()) return true;
+	} 
+	return false;
+}
 

@@ -7,19 +7,10 @@ wActualizarProducto::wActualizarProducto(wxWindow *parent,Producto p,SistemaVent
 	: i(num),base_productos(bp),sistema_venta(sis_ven),prod(p),ventanaActualizarProducto(parent) 
 	
 {
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	cantidadElegida->Disable();
-	
-	
 	
 	
 	precioLabel->SetLabel(float_to_str(prod.verPrecio()));
@@ -95,10 +86,6 @@ void wActualizarProducto::confirmarCarrito( wxCommandEvent& event )  {
 	/// agregar desde "realizar venta"
 	else {
 		if(i==-1) {
-			
-			
-			
-			
 			/// El producto temporal que cree "prod" toma el valor de la cantidad del label
 			/// (o -1 para validar) y hace las respectivas validaciones
 			float cantidad = -1.01;
@@ -126,6 +113,7 @@ void wActualizarProducto::confirmarCarrito( wxCommandEvent& event )  {
 			
 			
 		}
+		/// MODIFCIAR desde el carrito
 		else {
 			float cantidad = -1.01;
 			if(cantidadElegida->GetValue()!="")	cantidad = string_to_float(wx_to_std(cantidadElegida->GetValue())); /// Obtengo el valor del label

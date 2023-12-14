@@ -2,6 +2,9 @@
 #define FUNCIONESEXTAS_H
 #include <cstring>
 #include <algorithm>
+#include "fecha.h"
+#include <vector>
+#include "productoVenta.h"
 using namespace std;
 
 
@@ -10,62 +13,102 @@ inline string minuscula(string &str){
 	transform(b.begin(), b.end(), b.begin(), ::tolower); 
 	return b;
 }
-struct UsuariosChar{
-	char user[256];
-	char pass[256];
-	char fecha[256];
-	int tipo;
-	char nombre[256];
-	char direccion[256];
-	char localidad[256];
-	char email[256];
-	char fecha_nac[256];
+	
+struct PersonaStruct{
+	char nombre[50];
+	char direccion[50];
+	char localidad[50];
+	char email[20];
+	int dia=0, mes=0, anio=0; /// fecha nac
 	int dni;
+};
+
+struct UsuariosChar{
+	PersonaStruct pers;
+	char user[20];
+	char pass[20];
+//	char fecha[10]; /// <- fecha de registro
+	
+	int dia_reg,mes_reg,anio_reg; /// <- fecha reg
+	int tipo;
+	
 };
 	
 struct ClientesChar{
-	char nombre[256];
-	char direccion[256];
-	char localidad[256];
-	char email[256];
-	char fecha_nac[256];
-	int dni, codigo;
-	};
+	PersonaStruct pers;
+	int codigo;
+};
 
+struct prodsVenta{
+	char nombre[30];
+	int codigo=0;
+	float cantidad=0;
+	float precio=0;
+};
 
 struct structVentaRealizada{
+	/// 
 	
-	char productoycantidad[9999];
+	vector<prodsVenta> pv;
+	int n; /// tamaño del vector
 	
 	/// total 
-	float total;
+	float total=-1;
 	
-	
-	/// Datos del vendedor
-	char vendedor[256];
-	/// Datos del cliente
-	char cliente[256];
+	/// USUARIO del vendedor (el usuario es unico)
+	char vendedor[20];
+	/// Codigo del cliente
+	int cliente;
 	/// fecha de la venta...
-	char fecha_de_venta[256];
+	int dia=-1;
+	int mes=-1;
+	int anio=-1;
 	
-	
+	int hora=-1;
+	int minuto=-1;
+	int segundo=-1;
 	/// numeroVenta
-	int nro_venta;
 	
-	char nro_transaccion[256];
+	/// ej: abc123456
+	char nro_transaccion[10];
 	
 };
+
+
 
 
 /// pasa los datos al struct para despues poder
 /// cargar/guardar el binario
-inline structVentaRealizada pasarAStruct(string nombre_cantidad,string fec,string vendedor, string cliente,float total,string nrotrac){
+inline structVentaRealizada pasarAStruct(vector<productoVenta> &vector_pv,string &vendedor,int &cliente,float &total,string nrotrac,int n){
+	
 	structVentaRealizada pS;
+	
+	for(size_t i=0;i<vector_pv.size();i++) { 
+		prodsVenta prods;
+		prods.codigo =  vector_pv[i].verCodigoProducto();
+		prods.cantidad =  vector_pv[i].verCantidad();
+		prods.precio=vector_pv[i].obtenerValor();
+		strcpy(prods.nombre,vector_pv[i].verNombreProducto().c_str());
+		pS.pv.push_back(prods);
+	}
+	cout << pS.pv[0].nombre<<endl;
+	
+	fecha f;
+	f.fecha_actual();
+	
+	pS.n = n;
+	
+	
+	pS.dia=f.verDia();
+	pS.mes=f.verMes();
+	pS.anio=f.verAnio();
+	pS.hora=f.verHora();
+	pS.minuto=f.verMinuto();
+	pS.segundo=f.verSegundo();
+	
 	strcpy(pS.vendedor,vendedor.c_str());
-	strcpy(pS.productoycantidad,nombre_cantidad.c_str());
-	strcpy(pS.cliente,cliente.c_str());
+	pS.cliente=cliente;
 	pS.total = total;
-	strcpy(pS.fecha_de_venta,fec.c_str());
 	strcpy(pS.nro_transaccion,nrotrac.c_str());
 	
 	return pS; 
@@ -81,14 +124,3 @@ inline structVentaRealizada pasarAStruct(string nombre_cantidad,string fec,strin
 //	}
 //	return c;	
 //}
-inline string gen_random(const int len) {
-	static const char alphanum[] = "abcdefghijklmnopqrstuvwxyz";
-	string tmp_s;
-	tmp_s.reserve(len);
-		
-	for (int i = 0; i < len; ++i) {
-		tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
-	}
-		
-	return tmp_s;
-}

@@ -6,6 +6,7 @@
 
 wClientes::wClientes(wxWindow *parent,BaseUsuarios *bu) : base_usuarios(bu),ventana_Clientes(parent) {
 	actualizarGrilla();
+	grillaClientes->SetSelectionMode(wxGrid::wxGridSelectRows);
 }
 
 void wClientes::barraBusquedaClienteOnText( wxCommandEvent& event )  {

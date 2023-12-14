@@ -16,32 +16,15 @@ wAgregarCliente::wAgregarCliente(wxWindow * parent, int i,BaseUsuarios *bu) : po
 		direccionCliente->SetValue(base_usuarios->verCliente(i).verDireccion());
 		localidadCliente->SetValue(base_usuarios->verCliente(i).verLocalidad());
 		emailCliente->SetValue(base_usuarios->verCliente(i).verEmail());
-		fecha f(base_usuarios->verCliente(i).verFechaNac());
-		fechaNacCliente->SetValue(f.verAnio());
-		diaChoice->SetSelection(string_to_int(f.verDia())-1);
-		mesChoice->SetSelection(string_to_int(f.verMes())-1);
+//		fecha f(base_usuarios->verCliente(i).verFechaNac());
+		fechaNacCliente->SetValue(int_to_str(base_usuarios->verCliente(i).verAnio()));
+		diaChoice->SetSelection(base_usuarios->verCliente(i).verDia()-1);
+		mesChoice->SetSelection(base_usuarios->verCliente(i).verMes()-1);
 		
 	}
 }
 
-void wAgregarCliente::fechaNacClienteOnText( wxCommandEvent& event )  {
-	//	string str = wx_to_std(fechaNacCliente->GetValue());
-	//	if(str.size()==2 and str.find("/")==string::npos)	{
-	//		str+="/";
-	//		fechaNacCliente->SetValue(str);
-	//		fechaNacCliente->SetInsertionPoint(str.size());
-	//	}
-	//	
-	//	
-	//	if(str.size()==5 and str.find("/")!=5)	{
-	//		
-	//		str+="/";
-	//		fechaNacCliente->SetValue(str);
-	//		fechaNacCliente->SetInsertionPoint(str.size());
-	//	}
-	
-	/// 30/12/
-}
+
 
 void wAgregarCliente::AgregarClienteOnButtonClick( wxCommandEvent& event )  {
 	/// Agregando cliente
@@ -49,12 +32,10 @@ void wAgregarCliente::AgregarClienteOnButtonClick( wxCommandEvent& event )  {
 	/// esto es para reutilizar clase de añadir/edit cliente
 	
 	
-	string dia = int_to_str(diaChoice->GetCurrentSelection()+1);
-	if(dia.size()==1) dia.insert(0,"0");
-	string mes = int_to_str(mesChoice->GetCurrentSelection()+1);
-	if(mes.size()==1) mes.insert(0,"0");
+	int dia = (diaChoice->GetCurrentSelection()+1);
+	int mes = (mesChoice->GetCurrentSelection()+1);
 	
-	string fecha_nacimiento = dia+"/"+mes+"/"+ wx_to_std(fechaNacCliente->GetValue());
+	int anio = wx_to_int(fechaNacCliente->GetValue());
 	
 	
 	string nombre = wx_to_std(nombreCliente->GetValue());
@@ -68,7 +49,7 @@ void wAgregarCliente::AgregarClienteOnButtonClick( wxCommandEvent& event )  {
 	}
 	
 	
-	Cliente c(nombre,dni,dir,loc,mail,fecha_nacimiento);
+	Cliente c(nombre,dni,dir,loc,mail,dia,mes,anio);
 	
 	/// -1 = agregar nuevo cliente
 	if(pos==-1) {
@@ -111,4 +92,6 @@ void wAgregarCliente::volverOnButtonClick( wxCommandEvent& event )  {
 wAgregarCliente::~wAgregarCliente() {
 	
 }
+
+
 

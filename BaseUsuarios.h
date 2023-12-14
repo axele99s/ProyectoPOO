@@ -36,8 +36,12 @@ public:
 	
 
 	
-	/// Encontrar usuario/cliente
-	bool check(Usuario &u);  /// Este check sirve para ver si se encuentra o no el usuario en la base
+	/// Valida si existe(o no) usuario/cliente CON SU DNI
+	bool checkPorUser(Usuario &u);  /// Este check sirve para ver si se encuentra o no el usuario en la base
+	bool CheckPorDNI(Usuario &u);
+	
+	
+	/// Cliente solo con dni
 	bool check(Cliente &c); /// Lo mismo en este, con cliente
 	
 	
@@ -49,8 +53,10 @@ public:
 	/// Ver usuario
 	Usuario verUsuario(int i); /// Devuelve un usuario con la posicion i
 	Usuario verUsuario(string username);
-	int verPosUsuario(Usuario &c); /// Devuelve la posicion del Usuario
+	int verPosUsuario(Usuario &c); /// Devuelve la posicion del Usuario LO VALIDA CON EL USERNAME
+	
 	bool esElMismo(int i,Usuario &uu); /// Sirve para la validacion... al MODIFICAR usuario, revisa si no existe ni el dni ni el usuario
+	bool usuarioExistente(Usuario &uu);
 	///Ver Cliente
 	Cliente verCliente(int i); 
 	int verPosCliente(Cliente &c);
@@ -63,8 +69,6 @@ public:
 	
 	
 	/// sobrecarga de operadores (creo q no los termine usando)
-//	Cliente operator[](int num);
-//	Usuario operator[](string str);
 	
 	/// codigo random de cliente
 	int crearCodigoRandom();

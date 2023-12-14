@@ -1,4 +1,7 @@
 #include "Usuario.h"
+#include "string_conv.h"
+#include <iostream>
+using namespace std;
 
 Usuario::Usuario() {
 	
@@ -27,12 +30,9 @@ void Usuario::setPass (string p) {
 
 
 string Usuario::verFecha ( ) {
-	return fecha;
+	return int_to_str(dia_reg)+"-"+int_to_str(mes_reg)+"-"+int_to_str(anio_reg);
 }
 
-void Usuario::setFecha (string fecha) {
-	this->fecha=fecha;
-}
 
 Usuario::Usuario (string usuario, string pass) {
 	user = usuario;
@@ -47,7 +47,7 @@ int Usuario::verTipo ( ) {
 	return tipo;
 }
 
-Usuario::Usuario (string user, string pass, string fecha, int tipo, string nombre, int dni, string dir, string loc, string mail, string fechanac) {
+Usuario::Usuario (string user, string pass, int tipo, string nombre, int dni, string dir, string loc, string mail, int dia,int mes,int anio) {
 	this->user=user;
 	this->pass=pass;
 	this->fecha=fecha;
@@ -57,7 +57,33 @@ Usuario::Usuario (string user, string pass, string fecha, int tipo, string nombr
 	this->setDireccion(dir);
 	this->setLocalidad(loc);
 	this->setEmail(mail);
-	this->setFechaNac(fechanac);
+	this->setDia(dia);
+	this->setMes(mes);
+	this->setAnio(anio);
 	
+}
+
+int Usuario::verDia_Reg ( ) {
+	return dia_reg;
+}
+
+int Usuario::verMes_Reg ( ) {
+	return mes_reg;
+}
+
+int Usuario::verAnio_Reg ( ) {
+	return anio_reg;
+}
+
+int Usuario::setDia_Reg (int a) {
+	dia_reg = a;
+}
+
+int Usuario::setMes_Reg (int a) {
+	mes_reg = a;
+}
+
+int Usuario::setAnio_Reg (int a) {
+	anio_reg = a;
 }
 

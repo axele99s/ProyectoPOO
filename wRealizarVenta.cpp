@@ -4,13 +4,14 @@
 #include "wActualizarProducto.h"
 
 wRealizarVenta::wRealizarVenta(wxWindow *parent,BaseProductos *base,SistemaVenta *sv
-							   ,fecha *f,registro_Ventas *reg, Login *l) 
-	: log(l),registro(reg),m_fecha(f),ventanaRealizarVenta(parent),bp(base),sis_ven(sv) {
+							   ,fecha *f,registro_Ventas *reg, Login *l,BaseUsuarios* bu) 
+	: base_usuarios(bu),log(l),registro(reg),m_fecha(f),ventanaRealizarVenta(parent),bp(base),sis_ven(sv) {
 	enStock = bp->obtenerProductosEnStock();
 	
 	actualizarGrillaDisponibles(enStock);
 	
-	
+	grillaCarrito->SetSelectionMode(wxGrid::wxGridSelectRows);
+	grillaProductosVenta->SetSelectionMode(wxGrid::wxGridSelectRows);
 	grillaCarrito->DisableCellEditControl();
 }
 
@@ -114,16 +115,16 @@ void wRealizarVenta::vaciarCarritoOnClick( wxCommandEvent& event )  {
 }
 
 void wRealizarVenta::agregarClienteOnButtonClick( wxCommandEvent& event )  {
-	string dni_cliente = wx_to_std(clienteDNItexto->GetValue());
+	int dni_cliente = wx_to_int(clienteDNItexto->GetValue());
 //	/// CORREGIR ABAJO
-	if(sonNumeros(dni_cliente)==false) wxMessageBox("Ingrese solo numeros, texto no adminito","Error",wxOK);
+	if(sonNumeros(int_to_str(dni_cliente))==false) wxMessageBox("Ingrese solo numeros, texto no adminito","Error",wxOK);
 	else {
-		if(sis_ven->agregarClienteVenta(string_to_int(dni_cliente))==true) {
-			nombreClienteLabel->SetValue(std_to_wx(sis_ven->verCliente()));
-			
+		if(sis_ven->agregarClienteVenta(dni_cliente)==true) {
+			Cliente c = base_usuarios->verClientePorDNI(dni_cliente);
+			nombreClienteLabel->SetValue(c.verNombre());
 		}
 		else {
-			nombreClienteLabel->SetValue(sis_ven->verCliente());
+			nombreClienteLabel->SetValue("Consumidor final.");
 		}
 		
 	}
@@ -142,12 +143,11 @@ void wRealizarVenta::botonConfirmarOnButtonClick( wxCommandEvent& event )  {
 			/// Si se guarda la venta mensaje...
 			wxMessageBox("La venta se ha realizado con exito!","Venta",wxOK);
 			/// GUARDAR VENTANA REGISTRO
-			registro->guardarVenta(sis_ven->carrito(), m_fecha->obtenerFechaConHora(),log->verNombreUsuario(),sis_ven->verCliente(), sis_ven->subTotal());
-			sis_ven->realizarVenta();
+			sis_ven->confirmarVenta();
 			/// Se limpia el carrito
 			sis_ven->clearCarrito();
 			
-			EndModal(1);
+//			EndModal(1);
 			
 		}
 		else {
@@ -162,24 +162,20 @@ void wRealizarVenta::botonCancelarVentaOnButtonClick( wxCommandEvent& event )  {
 }
 
 wRealizarVenta::~wRealizarVenta() {
-	
+	sis_ven->clearCarrito();
 }
 
 
 void wRealizarVenta::actualizarGrillaCarrito ( ) {
 	if(grillaCarrito->GetNumberRows()>=1) grillaCarrito->DeleteRows(0,grillaCarrito->GetNumberRows());
-	//	grillaCarrito->DeleteRows(0,sis_ven->cantProdCarrito());
-	//	grillaCarrito->Refresh();
 	grillaCarrito->AppendRows(sis_ven->cantProdCarrito());
 	for(int i=0;i<sis_ven->cantProdCarrito();i++) { 
 		
 			grillaCarrito->SetCellValue(i,0,sis_ven->verProductoCarrito(i).verNombreProducto());
 			grillaCarrito->SetCellValue(i,1,std_to_wx(float_to_str(sis_ven->verCant(i))));
-//			if(grillaCarrito->GetCellValue(i,1)!="")sis_ven->cambiarCantidad(i,string_to_float(wx_to_std(grillaCarrito->GetCellValue(i,1))));
 			grillaCarrito->SetCellValue(i,2,std_to_wx(float_to_str(sis_ven->verProductoCarrito(i).verPrecio())));
 			
-			
-			grillaCarrito->SetCellValue(i,4,std_to_wx(float_to_str(sis_ven->calcularPrecio(i))));
+			grillaCarrito->SetCellValue(i,4,std_to_wx("$"+float_to_str(sis_ven->calcularPrecio(i))));
 			
 			if(bp->verProducto(i).verDescuento()==0) grillaCarrito->SetCellValue(i,3,"Sin descuento");
 			else 									grillaCarrito->SetCellValue(i,3,std_to_wx(float_to_str(sis_ven->verProductoCarrito(i).verDescuento())));
@@ -187,7 +183,7 @@ void wRealizarVenta::actualizarGrillaCarrito ( ) {
 		
 	}
 	
-	total->SetValue(float_to_str(sis_ven->subTotal()));
+	total->SetValue("$"+float_to_str(sis_ven->subTotal()));
 }
 
 void wRealizarVenta::actualizarGrillaDisponibles (vector<Producto> & v) {
@@ -198,6 +194,8 @@ void wRealizarVenta::actualizarGrillaDisponibles (vector<Producto> & v) {
 	for(int i=0;i<v.size();i++) { 
 		grillaProductosVenta->SetCellValue(i,0,v[i].verNombreProducto());
 		grillaProductosVenta->SetCellValue(i,1,std_to_wx(int_to_str(v[i].verCodigoProducto())));
+		grillaProductosVenta->SetCellValue(i,2,std_to_wx("$"+int_to_str(v[i].verPrecio())));
+		grillaProductosVenta->SetCellValue(i,3,std_to_wx(v[i].verDescripcion()));
 	}
 }
 
@@ -232,7 +230,8 @@ void wRealizarVenta::actualizarGrillaCarritoFiltro (vector<Producto> & p) {
 			
 			grillaProductosVenta->SetCellValue(i,0,p[i].verNombreProducto());
 			grillaProductosVenta->SetCellValue(i,1,std_to_wx(int_to_str(p[i].verCodigoProducto())));
-		
+			grillaProductosVenta->SetCellValue(i,2,std_to_wx("$"+int_to_str(p[i].verPrecio())));
+			grillaProductosVenta->SetCellValue(i,3,std_to_wx(p[i].verDescripcion()));
 		
 	}
 }

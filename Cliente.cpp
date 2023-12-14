@@ -21,22 +21,26 @@ void Cliente::setCodigoCliente (int code) {
 
 
 
-Cliente::Cliente (int codigoCliente, string nombre, int dni, string dir, string loc, string mail, string fechanac) {
+Cliente::Cliente (int codigoCliente, string nombre, int dni, string dir, string loc, string mail, int dia,int mes,int anio) {
 	this->codigo_cliente = codigoCliente;
 	this->setNombre(nombre);
 	this->setDNI(dni);
 	this->setDireccion(dir);
 	this->setLocalidad(loc);
 	this->setEmail(mail);
-	this->setFechaNac(fechanac);
+	this->setDia(dia);
+	this->setMes(mes);
+	this->setAnio(anio);
 }
 
-Cliente::Cliente (string nombre, int dni, string dir, string loc, string mail, string fechanac) {
+Cliente::Cliente (string nombre, int dni, string dir, string loc, string mail, int dia,int mes,int anio) {
 	this->setNombre(nombre);
 	this->setDNI(dni);
 	this->setDireccion(dir);
 	this->setLocalidad(loc);
 	this->setEmail(mail);
-	this->setFechaNac(fechanac);
+	this->setDia(dia);
+	this->setMes(mes);
+	this->setAnio(anio);
 }
 

@@ -4,6 +4,7 @@
 #include "registro_Ventas.h"
 #include "fecha.h"
 #include "BaseProductos.h"
+#include "BaseUsuarios.h"
 
 class wHistorialVentas : public ventanaHistorialVentas {
 	
@@ -11,6 +12,7 @@ private:
 	registro_Ventas *registro;
 	fecha *fec;
 	BaseProductos *base_productos;
+	BaseUsuarios *base_usuarios;
 protected:
 	void historialVentasBuscadorOnText( wxCommandEvent& event )  override;
 	void reloadOnButtonClick( wxCommandEvent& event )  override;
@@ -22,7 +24,7 @@ protected:
 	void vaciarRegistroOnButtonClick( wxCommandEvent& event )  override;
 	
 public:
-	wHistorialVentas(wxWindow *parent=NULL,registro_Ventas *reg=NULL,BaseProductos *bp=NULL);
+	wHistorialVentas(wxWindow *parent=NULL,registro_Ventas *reg=NULL,BaseProductos *bp=NULL,BaseUsuarios *bu=NULL);
 	void actualizarGrilla();
 	void actualizarGrillaFiltro(vector<structVentaRealizada> &svr_vector);
 	~wHistorialVentas();

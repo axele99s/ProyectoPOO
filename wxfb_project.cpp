@@ -9,7 +9,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-ventanaLogin::ventanaLogin( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+ventana_Login::ventana_Login( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
@@ -69,24 +69,23 @@ ventanaLogin::ventanaLogin( wxWindow* parent, wxWindowID id, const wxString& tit
 
 	this->SetSizer( bSizer2 );
 	this->Layout();
-	bSizer2->Fit( this );
 
 	this->Centre( wxBOTH );
 
 	// Connect Events
-	showPassLogin->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( ventanaLogin::showPassLoginOnCheckBox ), NULL, this );
-	guardarDatos->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( ventanaLogin::guardarDatosOnCheckBox ), NULL, this );
-	botonLogeo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaLogin::clickBotonIniciar ), NULL, this );
-	Salir->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaLogin::SalirOnButtonClick ), NULL, this );
+	showPassLogin->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( ventana_Login::showPassLoginOnCheckBox ), NULL, this );
+	guardarDatos->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( ventana_Login::guardarDatosOnCheckBox ), NULL, this );
+	botonLogeo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventana_Login::clickBotonIniciar ), NULL, this );
+	Salir->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventana_Login::SalirOnButtonClick ), NULL, this );
 }
 
-ventanaLogin::~ventanaLogin()
+ventana_Login::~ventana_Login()
 {
 	// Disconnect Events
-	showPassLogin->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( ventanaLogin::showPassLoginOnCheckBox ), NULL, this );
-	guardarDatos->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( ventanaLogin::guardarDatosOnCheckBox ), NULL, this );
-	botonLogeo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaLogin::clickBotonIniciar ), NULL, this );
-	Salir->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaLogin::SalirOnButtonClick ), NULL, this );
+	showPassLogin->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( ventana_Login::showPassLoginOnCheckBox ), NULL, this );
+	guardarDatos->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( ventana_Login::guardarDatosOnCheckBox ), NULL, this );
+	botonLogeo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventana_Login::clickBotonIniciar ), NULL, this );
+	Salir->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventana_Login::SalirOnButtonClick ), NULL, this );
 
 }
 
@@ -387,7 +386,7 @@ ventanaRealizarVenta::ventanaRealizarVenta( wxWindow* parent, wxWindowID id, con
 	grillaProductosVenta = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 
 	// Grid
-	grillaProductosVenta->CreateGrid( 0, 2 );
+	grillaProductosVenta->CreateGrid( 0, 4 );
 	grillaProductosVenta->EnableEditing( false );
 	grillaProductosVenta->EnableGridLines( true );
 	grillaProductosVenta->EnableDragGridSize( false );
@@ -395,11 +394,14 @@ ventanaRealizarVenta::ventanaRealizarVenta( wxWindow* parent, wxWindowID id, con
 
 	// Columns
 	grillaProductosVenta->SetColSize( 0, 80 );
-	grillaProductosVenta->SetColSize( 1, 80 );
+	grillaProductosVenta->SetColSize( 1, 81 );
+	grillaProductosVenta->SetColSize( 2, 80 );
 	grillaProductosVenta->EnableDragColMove( false );
 	grillaProductosVenta->EnableDragColSize( true );
 	grillaProductosVenta->SetColLabelValue( 0, wxT("Producto") );
 	grillaProductosVenta->SetColLabelValue( 1, wxT("Codigo") );
+	grillaProductosVenta->SetColLabelValue( 2, wxT("Precio") );
+	grillaProductosVenta->SetColLabelValue( 3, wxT("Descripcion") );
 	grillaProductosVenta->SetColLabelAlignment( wxALIGN_CENTER, wxALIGN_CENTER );
 
 	// Rows
@@ -421,6 +423,9 @@ ventanaRealizarVenta::ventanaRealizarVenta( wxWindow* parent, wxWindowID id, con
 
 
 	bSizer19->Add( bSizer36, 0, wxEXPAND, 5 );
+
+
+	bSizer19->Add( 0, 0, 1, wxEXPAND, 5 );
 
 	wxBoxSizer* bSizer11;
 	bSizer11 = new wxBoxSizer( wxVERTICAL );
@@ -464,14 +469,17 @@ ventanaRealizarVenta::ventanaRealizarVenta( wxWindow* parent, wxWindowID id, con
 
 	bSizer19->Add( bSizer11, 1, wxEXPAND, 5 );
 
+
+	bSizer19->Add( 0, 0, 1, wxEXPAND, 5 );
+
 	wxBoxSizer* bSizer16;
 	bSizer16 = new wxBoxSizer( wxVERTICAL );
 
-	m_bpButton1 = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|0 );
-	bSizer16->Add( m_bpButton1, 1, wxALL|wxEXPAND, 5 );
-
 	wxBoxSizer* bSizer86;
 	bSizer86 = new wxBoxSizer( wxVERTICAL );
+
+
+	bSizer86->Add( 0, 0, 1, wxEXPAND, 5 );
 
 	botonEliminarCarrito = new wxButton( this, wxID_ANY, wxT("Eliminar"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer86->Add( botonEliminarCarrito, 0, wxALL|wxEXPAND, 5 );
@@ -480,6 +488,9 @@ ventanaRealizarVenta::ventanaRealizarVenta( wxWindow* parent, wxWindowID id, con
 	clearCarrito->SetBackgroundColour( wxColour( 255, 128, 128 ) );
 
 	bSizer86->Add( clearCarrito, 0, wxALL|wxEXPAND, 5 );
+
+
+	bSizer86->Add( 0, 0, 1, wxEXPAND, 5 );
 
 
 	bSizer16->Add( bSizer86, 1, wxEXPAND, 5 );
@@ -501,6 +512,9 @@ ventanaRealizarVenta::ventanaRealizarVenta( wxWindow* parent, wxWindowID id, con
 
 
 	bSizer19->Add( bSizer16, 1, wxEXPAND, 5 );
+
+
+	bSizer19->Add( 0, 0, 1, wxEXPAND, 5 );
 
 
 	bSizer10->Add( bSizer19, 1, wxEXPAND, 5 );
@@ -989,8 +1003,10 @@ ventanaHistorialVentas::ventanaHistorialVentas( wxWindow* parent, wxWindowID id,
 	eliminarVenta = new wxButton( this, wxID_ANY, wxT("Eliminar venta"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer83->Add( eliminarVenta, 0, wxALL, 5 );
 
-	vaciarRegistro = new wxButton( this, wxID_ANY, wxT("Vaciar Carrito"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer83->Add( vaciarRegistro, 0, wxALL, 5 );
+	vaciarHistorial = new wxButton( this, wxID_ANY, wxT("Vaciar Historial"), wxDefaultPosition, wxDefaultSize, 0 );
+	vaciarHistorial->Hide();
+
+	bSizer83->Add( vaciarHistorial, 0, wxALL, 5 );
 
 
 	bSizer42->Add( bSizer83, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
@@ -1009,7 +1025,7 @@ ventanaHistorialVentas::ventanaHistorialVentas( wxWindow* parent, wxWindowID id,
 	anioFiltro->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaHistorialVentas::anioFiltroOnButtonClick ), NULL, this );
 	grillaRegistroVentas->Connect( wxEVT_GRID_CELL_LEFT_DCLICK, wxGridEventHandler( ventanaHistorialVentas::grillaRegistroVentasOnGridCellLeftDClick ), NULL, this );
 	eliminarVenta->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaHistorialVentas::eliminarVentaOnButtonClick ), NULL, this );
-	vaciarRegistro->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaHistorialVentas::vaciarRegistroOnButtonClick ), NULL, this );
+	vaciarHistorial->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaHistorialVentas::vaciarRegistroOnButtonClick ), NULL, this );
 }
 
 ventanaHistorialVentas::~ventanaHistorialVentas()
@@ -1022,7 +1038,7 @@ ventanaHistorialVentas::~ventanaHistorialVentas()
 	anioFiltro->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaHistorialVentas::anioFiltroOnButtonClick ), NULL, this );
 	grillaRegistroVentas->Disconnect( wxEVT_GRID_CELL_LEFT_DCLICK, wxGridEventHandler( ventanaHistorialVentas::grillaRegistroVentasOnGridCellLeftDClick ), NULL, this );
 	eliminarVenta->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaHistorialVentas::eliminarVentaOnButtonClick ), NULL, this );
-	vaciarRegistro->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaHistorialVentas::vaciarRegistroOnButtonClick ), NULL, this );
+	vaciarHistorial->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaHistorialVentas::vaciarRegistroOnButtonClick ), NULL, this );
 
 }
 
@@ -1352,7 +1368,6 @@ ventanaAgregarCliente::ventanaAgregarCliente( wxWindow* parent, wxWindowID id, c
 	this->Centre( wxBOTH );
 
 	// Connect Events
-	fechaNacCliente->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( ventanaAgregarCliente::fechaNacClienteOnText ), NULL, this );
 	AgregarCliente->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaAgregarCliente::AgregarClienteOnButtonClick ), NULL, this );
 	volver->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaAgregarCliente::volverOnButtonClick ), NULL, this );
 }
@@ -1360,7 +1375,6 @@ ventanaAgregarCliente::ventanaAgregarCliente( wxWindow* parent, wxWindowID id, c
 ventanaAgregarCliente::~ventanaAgregarCliente()
 {
 	// Disconnect Events
-	fechaNacCliente->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( ventanaAgregarCliente::fechaNacClienteOnText ), NULL, this );
 	AgregarCliente->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaAgregarCliente::AgregarClienteOnButtonClick ), NULL, this );
 	volver->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ventanaAgregarCliente::volverOnButtonClick ), NULL, this );
 
@@ -1576,10 +1590,10 @@ ventanaAgregarUsuario::ventanaAgregarUsuario( wxWindow* parent, wxWindowID id, c
 	#ifdef __WXGTK__
 	if ( !fechaNacUser->HasFlag( wxTE_MULTILINE ) )
 	{
-	fechaNacUser->SetMaxLength( 10 );
+	fechaNacUser->SetMaxLength( 4 );
 	}
 	#else
-	fechaNacUser->SetMaxLength( 10 );
+	fechaNacUser->SetMaxLength( 4 );
 	#endif
 	bSizer1032->Add( fechaNacUser, 1, wxALL, 5 );
 
@@ -1798,7 +1812,7 @@ ventanaProductosVendidos::ventanaProductosVendidos( wxWindow* parent, wxWindowID
 	grillaVendidos = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 
 	// Grid
-	grillaVendidos->CreateGrid( 0, 4 );
+	grillaVendidos->CreateGrid( 0, 5 );
 	grillaVendidos->EnableEditing( false );
 	grillaVendidos->EnableGridLines( true );
 	grillaVendidos->EnableDragGridSize( false );
@@ -1814,6 +1828,7 @@ ventanaProductosVendidos::ventanaProductosVendidos( wxWindow* parent, wxWindowID
 	grillaVendidos->SetColLabelValue( 1, wxT("Cantidad") );
 	grillaVendidos->SetColLabelValue( 2, wxT("Precio") );
 	grillaVendidos->SetColLabelValue( 3, wxT("Codigo") );
+	grillaVendidos->SetColLabelValue( 4, wxT("Estado") );
 	grillaVendidos->SetColLabelAlignment( wxALIGN_CENTER, wxALIGN_CENTER );
 
 	// Rows

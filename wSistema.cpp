@@ -2,7 +2,6 @@
 #include "wInformacion.h"
 #include "wHistorialVentas.h"
 #include "wRealizarVenta.h"
-#include "wLogin.h"
 #include "wDatosPersonales.h"
 #include "wAgregarUsuario.h"
 #include "wEmpleados.h"
@@ -10,6 +9,7 @@
 #include "wAgregarProducto.h"
 #include "wClientes.h"
 #include "wListarArticulos.h"
+#include "wLogeo.h"
 
 wSistema::wSistema(wxWindow *parent,BaseProductos *base,SistemaVenta *sv,fecha *f,registro_Ventas *reg
 				   ,BaseUsuarios *bu,Login *l
@@ -78,17 +78,17 @@ void wSistema::menuVerDatosOnMenuSelection( wxCommandEvent& event )  {
 
 void wSistema::cerrarSesionMenu( wxCommandEvent& event )  {
 	Close();
-	wLogin win(NULL,log,base_usuarios,bp,sistema_venta,m_fecha,registro);
-	win.ShowModal();
+	wLogeo *win= new wLogeo(NULL,log,base_usuarios,bp,sistema_venta,m_fecha,registro);
+	win->Show();
 }
 
 void wSistema::realizarNuevaVenta( wxCommandEvent& event )  {
-	wRealizarVenta win(this,bp,sistema_venta,m_fecha,registro,log);
+	wRealizarVenta win(this,bp,sistema_venta,m_fecha,registro,log,base_usuarios);
 	win.ShowModal();
 }
 
 void wSistema::botonHistorialOnButtonClick( wxCommandEvent& event )  {
-	wHistorialVentas win(this,registro,bp);
+	wHistorialVentas win(this,registro,bp,base_usuarios);
 	win.ShowModal();
 }
 

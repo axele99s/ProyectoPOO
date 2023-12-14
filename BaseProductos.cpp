@@ -69,12 +69,14 @@ void BaseProductos::CargarBIN ( ) {
 void BaseProductos::AgregarProducto (Producto & p) {
 	
 	int n =  rand()%10000+1;
-	for(size_t i=0;i<productos.size();i++) { 
-		if(existe(n) == true)  {
-			n =  rand()%10000+1;;
-			i=0;
-		}
-	}
+	while(existe(n) == true) {n =  rand()%10000+1;} 
+	
+//	for(size_t i=0;i<productos.size();i++) { 
+//		if(existe(n) == true)  {
+//			n =  rand()%10000+1;;
+//			i=0;
+//		}
+//	}
 	
 	p.cambiarCodigo(n);
 	productos.push_back(p); 

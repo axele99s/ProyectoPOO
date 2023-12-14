@@ -30,7 +30,7 @@ Login::Login(BaseUsuarios *bu) : b(bu) {
 /// verifico si los datos ingresados son correctos
 
 bool Login::entrar (Usuario & u) {
-	if( b->check(u)==false) return false;
+	if( b->checkPorUser(u)==false) return false;
 	Usuario usuarioDeBase = b->verUsuario(b->verPosUsuario(u));
 	return (u.verPass()==usuarioDeBase.verPass());
 }
