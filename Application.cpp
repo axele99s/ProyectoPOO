@@ -20,7 +20,7 @@ bool Application::OnInit() {
 	sistema_venta = new SistemaVenta(m_baseProductos,m_baseUsuarios,login,registro_de_ventas);
 	base_usuarios = new BaseUsuarios();
 	
-	
+	registro_de_ventas->cargarHistorialVentas();
 //	wLogin win(NULL,login,m_baseUsuarios,m_baseProductos,sistema_venta,m_fecha,registro_de_ventas);
 //	win.ShowModal();
 	wLogeo *win= new wLogeo(NULL,login,m_baseUsuarios,m_baseProductos,sistema_venta,m_fecha,registro_de_ventas);

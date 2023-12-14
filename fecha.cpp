@@ -77,7 +77,12 @@ int fecha::verAnio ( ) {
 
 
 string fecha::verFecha ( ) {
-	return int_to_str(m_dia)+"-"+int_to_str(m_mes)+"-"+int_to_str(m_anio);
+	string dia = int_to_str(m_dia);
+	string mes = int_to_str(m_mes);
+	if(m_dia<=9) { dia = "0"+int_to_str(m_dia) ;}
+	if(m_mes<=9) { mes = "0"+int_to_str(m_mes) ;}
+	
+	return dia+"-"+mes+"-"+int_to_str(m_anio);
 }
 
 fecha::fecha (int dia, int mes, int anio) : m_dia(dia),m_mes(mes),m_anio(anio) {

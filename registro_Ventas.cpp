@@ -7,6 +7,7 @@
 #include "validaciones.h"
 #include "funcionesExtas.h"
 #include <algorithm>
+#include "fecha.h"
 using namespace std;
 
 /// Constructor
@@ -16,6 +17,7 @@ registro_Ventas::registro_Ventas() {
 
 void registro_Ventas::crearBinario ( ) {
 	ofstream ventaBin("historialVentas.bin",ios::binary|ios::trunc);
+	
 	for(size_t i=0;i<svr_vector.size();i++) { 
 		structVentaRealizada svr = svr_vector[i];
 		ventaBin.write(reinterpret_cast<char*>(&svr.vendedor),sizeof(svr.vendedor));
@@ -31,8 +33,10 @@ void registro_Ventas::crearBinario ( ) {
 		ventaBin.write(reinterpret_cast<char*>(&svr.n),sizeof(svr.n));
 		
 		for(int j=0;j<svr.n;j++) { 
-			prodsVenta prods_venta = svr.pv[j];
-			ventaBin.write(reinterpret_cast<char*>(&prods_venta.nombre),sizeof(&prods_venta.nombre));
+			prodsVenta prods_venta = svr_vector[i].pv[j];
+			
+			char nombre[30];
+			ventaBin.write(reinterpret_cast<char*>(&prods_venta.nombre),sizeof(&nombre));
 			ventaBin.write(reinterpret_cast<char*>(&prods_venta.codigo),sizeof(prods_venta.codigo));
 			ventaBin.write(reinterpret_cast<char*>(&prods_venta.cantidad),sizeof(prods_venta.cantidad));
 			ventaBin.write(reinterpret_cast<char*>(&prods_venta.precio),sizeof(&prods_venta.precio));
@@ -40,7 +44,7 @@ void registro_Ventas::crearBinario ( ) {
 		}
 	}
 	
-	
+//	reverse(svr_vector.begin(),svr_vector.end());
 }
 void registro_Ventas::cargarHistorialVentas ( ) {
 	svr_vector.clear();
@@ -65,11 +69,10 @@ void registro_Ventas::cargarHistorialVentas ( ) {
 		ventasBin.read(reinterpret_cast<char*>(&vectorSVR.n),sizeof(vectorSVR.n));
 		
 		
-		
 		for(int i=0;i<vectorSVR.n;i++) { 
 			prodsVenta prods_venta;
-			
-			ventasBin.read(reinterpret_cast<char*>(&prods_venta.nombre),sizeof(&prods_venta.nombre));
+			char nombre[30];
+			ventasBin.read(reinterpret_cast<char*>(&prods_venta.nombre),sizeof(&nombre));
 			ventasBin.read(reinterpret_cast<char*>(&prods_venta.codigo),sizeof(prods_venta.codigo));
 			ventasBin.read(reinterpret_cast<char*>(&prods_venta.cantidad),sizeof(prods_venta.cantidad));
 			ventasBin.read(reinterpret_cast<char*>(&prods_venta.precio),sizeof(&prods_venta.precio));
@@ -83,7 +86,13 @@ void registro_Ventas::cargarHistorialVentas ( ) {
 		
 		
 	}
+	
 	reverse(svr_vector.begin(),svr_vector.end());
+	
+	
+	
+	
+	
 }
 
 
@@ -95,6 +104,7 @@ void registro_Ventas::guardarVenta (vector<productoVenta> pv, string vendedor, i
 	
 	
 	structVentaRealizada svr = pasarAStruct(pv,vendedor,cliente,total,randomNroTransaccion(),pv.size());
+	reverse(svr_vector.begin(),svr_vector.end());
 	svr_vector.push_back(svr);
 	
 	
@@ -228,18 +238,18 @@ vector<structVentaRealizada> registro_Ventas::buscarPorTransaccion (string trac)
 }
 
 
-vector<structVentaRealizada> registro_Ventas::buscarPorDia (string dia) {
+vector<structVentaRealizada> registro_Ventas::buscarPorDia (fecha f) {
 	vector<structVentaRealizada> svr;
+//	cout <<f.verDia()<< " "<< f.verMes()<<" "<< f.verAnio()<<endl;
+//	cout << "Espacio publicitario"<<endl;
 	for(size_t i=0;i<svr_vector.size();i++) { 
 		
+		int dia = svr_vector[i].dia;
+		int mes = svr_vector[i].mes;
+		int anio = svr_vector[i].anio;
+//		cout << dia << " " << mes << " " << anio << endl;
 		
-		
-//		fecha f(svr_vector[i].dia,svr_vector[i].mes,svr_vector[i].anio);
-		
-		string f = verFechaVenta(i); 
-
-		string fecha_temp = convertirFecha(f); 		/// la paso a un formato para el filtro 
-		if((fecha_temp).find(dia)!=string::npos) {
+		if (dia == f.verDia() and mes == f.verMes() and anio == f.verAnio() ) {
 			svr.push_back(svr_vector[i]);
 		}
 	}
@@ -248,31 +258,29 @@ vector<structVentaRealizada> registro_Ventas::buscarPorDia (string dia) {
 	return svr;
 }
 
-vector<structVentaRealizada> registro_Ventas::buscarPorMes (string mes) {
+vector<structVentaRealizada> registro_Ventas::buscarPorMes (fecha f) {
 	vector<structVentaRealizada> svr;
 	for(size_t i=0;i<svr_vector.size();i++) { 
 		
+		int mes = svr_vector[i].mes;
+		int anio = svr_vector[i].anio;
 		
 		
-		string f = verFechaVenta(i); 
-		string fecha_temp = convertirFecha(f); 		/// la paso a un formato para el filtro 
-		if((fecha_temp).find(mes)!=string::npos) {
-			svr.push_back(svr_vector[i]);
-		}
+		if (mes == f.verMes() and anio == f.verAnio() ) {svr.push_back(svr_vector[i]);}
 	}
 	
 	
 	return svr;
 }
 
-vector<structVentaRealizada> registro_Ventas::buscarPorAnio (string anio) {
+vector<structVentaRealizada> registro_Ventas::buscarPorAnio (fecha f) {
 	vector<structVentaRealizada> svr;
 	for(size_t i=0;i<svr_vector.size();i++) { 
-		string f = verFechaVenta(i); 
-//		string fecha_temp = convertirFecha(f); 		/// la paso a un formato para el filtro 
-		if((f).find(anio)!=string::npos) {
-			svr.push_back(svr_vector[i]);
-		}
+		
+		int anio = svr_vector[i].anio;
+		
+		
+		if (anio == f.verAnio() ) {svr.push_back(svr_vector[i]);}
 	}
 	
 	
@@ -283,6 +291,7 @@ vector<prodsVenta> registro_Ventas::verProductos (string trac) {
 	for(size_t i=0;i<svr_vector.size();i++) { 
 		if(svr_vector[i].nro_transaccion == trac) return svr_vector[i].pv;
 	}
+	
 }
 
 

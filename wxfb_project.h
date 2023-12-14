@@ -340,8 +340,8 @@ class ventanaFiltroFecha : public wxDialog
 		wxStaticText* diaText;
 		wxStaticText* mesText;
 		wxStaticText* m_staticText54;
-		wxTextCtrl* diaLabel;
-		wxTextCtrl* mesLabel;
+		wxChoice* diaChoice;
+		wxChoice* mesChoice;
 		wxTextCtrl* anioLabel;
 		wxButton* buscarFecha;
 		wxButton* back;

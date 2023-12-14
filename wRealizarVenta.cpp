@@ -146,7 +146,7 @@ void wRealizarVenta::botonConfirmarOnButtonClick( wxCommandEvent& event )  {
 			sis_ven->confirmarVenta();
 			/// Se limpia el carrito
 			sis_ven->clearCarrito();
-			
+			actualizarGrillaCarrito();
 //			EndModal(1);
 			
 		}

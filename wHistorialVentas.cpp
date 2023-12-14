@@ -25,8 +25,11 @@ void wHistorialVentas::diaFiltroOnButtonClick( wxCommandEvent& event )  {
 	wFiltroFecha win(this,fec,1);
 	if(win.ShowModal()){
 		
-		vector<structVentaRealizada> v = registro->buscarPorDia(fec->verFecha());
-		if(!v.empty()){	actualizarGrillaFiltro(v);}
+		vector<structVentaRealizada> v = registro->buscarPorDia(*fec);
+		
+		if(!v.empty()){	
+			actualizarGrillaFiltro(v);
+		}
 		else wxMessageBox("Sin Resultados.","",wxOK);
 	}
 }
@@ -34,7 +37,7 @@ void wHistorialVentas::diaFiltroOnButtonClick( wxCommandEvent& event )  {
 void wHistorialVentas::mesFiltroOnButtonClick( wxCommandEvent& event )  {
 	wFiltroFecha win(this,fec,2);
 	if(win.ShowModal()==true) {
-		vector<structVentaRealizada> v = registro->buscarPorMes(int_to_str(fec->verMes())+int_to_str(fec->verAnio()));
+		vector<structVentaRealizada> v = registro->buscarPorMes(*fec);
 		if(!v.empty()){	actualizarGrillaFiltro(v);}
 		else wxMessageBox("Sin Resultados.","",wxOK);
 	}
@@ -43,7 +46,7 @@ void wHistorialVentas::mesFiltroOnButtonClick( wxCommandEvent& event )  {
 void wHistorialVentas::anioFiltroOnButtonClick( wxCommandEvent& event )  {
 	wFiltroFecha win(this,fec,3);
 	if(win.ShowModal()==true) {
-		vector<structVentaRealizada> v = registro->buscarPorAnio(int_to_str(fec->verAnio()));
+		vector<structVentaRealizada> v = registro->buscarPorAnio(*fec);
 		if(!v.empty()){	actualizarGrillaFiltro(v);}
 		else wxMessageBox("Sin Resultados.","",wxOK);
 	}
@@ -117,9 +120,11 @@ void wHistorialVentas::actualizarGrillaFiltro (vector<structVentaRealizada> & sv
 	for(int i=0;i<svr_vector.size();i++) { 
 		structVentaRealizada svr = svr_vector[i];
 		
+		string m_fecha_hora = int_to_str(svr.dia)+"-"+ int_to_str(svr.mes)+"-"+ int_to_str(svr.anio) + " - "+
+			int_to_str(svr.hora)+":"+ int_to_str(svr.minuto)+":"+ int_to_str(svr.segundo)
+			;
 		
-		
-		grillaRegistroVentas->SetCellValue(i,0,registro->verFechaVenta(i));
+		grillaRegistroVentas->SetCellValue(i,0,m_fecha_hora);
 		grillaRegistroVentas->SetCellValue(i,1,svr.nro_transaccion);
 		grillaRegistroVentas->SetCellValue(i,2,svr.vendedor);
 		grillaRegistroVentas->SetCellValue(i,3,"$"+float_to_str(svr.total));

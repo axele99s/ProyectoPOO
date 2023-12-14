@@ -36,9 +36,9 @@ public:
 	void setPass(string p);
 	void setTipo(int t);
 //	void setFecha(string str);
-	int setDia_Reg(int);
-	int setMes_Reg(int);
-	int setAnio_Reg(int);
+	void setDia_Reg(int);
+	void setMes_Reg(int);
+	void setAnio_Reg(int);
 	
 	
 	

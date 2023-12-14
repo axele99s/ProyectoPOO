@@ -37,9 +37,9 @@ public:
 	
 	vector<structVentaRealizada> buscarPorTransaccion(string trac);
 	
-	vector<structVentaRealizada> buscarPorDia(string dia);
-	vector<structVentaRealizada> buscarPorMes(string mes);
-	vector<structVentaRealizada> buscarPorAnio(string anio);
+	vector<structVentaRealizada> buscarPorDia(fecha f);
+	vector<structVentaRealizada> buscarPorMes(fecha f);
+	vector<structVentaRealizada> buscarPorAnio(fecha f);
 	
 	string randomNroTransaccion();
 	

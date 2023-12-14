@@ -162,7 +162,7 @@ Producto BaseProductos::verConCodigo (int codigo) {
 		return productos[i];
 		
 	}
-	
+	return Producto();
 }
 
 Producto BaseProductos::verProducto (int i) {
@@ -279,7 +279,7 @@ vector<Producto> BaseProductos::buscarPorCodigo (string codigoTemporal) {
 
 vector<Producto> BaseProductos::obtenerProductosEnStock ( ) {
 	vector<Producto> enStock;
-	for(int i=0;i<productos.size();i++) { 
+	for(size_t i=0;i<productos.size();i++) { 
 		if(productos[i].verStock()>0) {
 			enStock.push_back(productos[i]);
 		}

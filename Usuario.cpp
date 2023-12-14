@@ -75,15 +75,15 @@ int Usuario::verAnio_Reg ( ) {
 	return anio_reg;
 }
 
-int Usuario::setDia_Reg (int a) {
+void Usuario::setDia_Reg (int a) {
 	dia_reg = a;
 }
 
-int Usuario::setMes_Reg (int a) {
+void Usuario::setMes_Reg (int a) {
 	mes_reg = a;
 }
 
-int Usuario::setAnio_Reg (int a) {
+void Usuario::setAnio_Reg (int a) {
 	anio_reg = a;
 }
 

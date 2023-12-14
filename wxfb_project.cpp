@@ -1070,27 +1070,17 @@ ventanaFiltroFecha::ventanaFiltroFecha( wxWindow* parent, wxWindowID id, const w
 	wxBoxSizer* bSizer96;
 	bSizer96 = new wxBoxSizer( wxHORIZONTAL );
 
-	diaLabel = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	#ifdef __WXGTK__
-	if ( !diaLabel->HasFlag( wxTE_MULTILINE ) )
-	{
-	diaLabel->SetMaxLength( 2 );
-	}
-	#else
-	diaLabel->SetMaxLength( 2 );
-	#endif
-	bSizer96->Add( diaLabel, 0, wxALL, 5 );
+	wxString diaChoiceChoices[] = { wxT("1"), wxT("2"), wxT("3"), wxT("4"), wxT("5"), wxT("6"), wxT("7"), wxT("8"), wxT("9"), wxT("10"), wxT("11"), wxT("12"), wxT("13"), wxT("14"), wxT("15"), wxT("16"), wxT("17"), wxT("18"), wxT("19"), wxT("20"), wxT("21"), wxT("22"), wxT("23"), wxT("24"), wxT("25"), wxT("26"), wxT("27"), wxT("28"), wxT("29"), wxT("30"), wxT("31") };
+	int diaChoiceNChoices = sizeof( diaChoiceChoices ) / sizeof( wxString );
+	diaChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, diaChoiceNChoices, diaChoiceChoices, 0 );
+	diaChoice->SetSelection( 0 );
+	bSizer96->Add( diaChoice, 0, wxALL, 5 );
 
-	mesLabel = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	#ifdef __WXGTK__
-	if ( !mesLabel->HasFlag( wxTE_MULTILINE ) )
-	{
-	mesLabel->SetMaxLength( 2 );
-	}
-	#else
-	mesLabel->SetMaxLength( 2 );
-	#endif
-	bSizer96->Add( mesLabel, 0, wxALL, 5 );
+	wxString mesChoiceChoices[] = { wxT("Enero"), wxT("Febrero"), wxT("Marzo"), wxT("Abril"), wxT("Mayo"), wxT("Junio"), wxT("Julio"), wxT("Agosto"), wxT("Septiembre"), wxT("Octubre"), wxT("Noviembre"), wxT("Diciembre") };
+	int mesChoiceNChoices = sizeof( mesChoiceChoices ) / sizeof( wxString );
+	mesChoice = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, mesChoiceNChoices, mesChoiceChoices, 0 );
+	mesChoice->SetSelection( 0 );
+	bSizer96->Add( mesChoice, 0, wxALL, 5 );
 
 	anioLabel = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	#ifdef __WXGTK__

@@ -44,13 +44,16 @@ struct prodsVenta{
 	int codigo=0;
 	float cantidad=0;
 	float precio=0;
+	
+	///
+//	char nro_transaccion[10];
 };
 
 struct structVentaRealizada{
 	/// 
 	
 	vector<prodsVenta> pv;
-	int n; /// tamaño del vector
+	int n=0; /// tamaño del vector
 	
 	/// total 
 	float total=-1;
@@ -87,11 +90,12 @@ inline structVentaRealizada pasarAStruct(vector<productoVenta> &vector_pv,string
 		prodsVenta prods;
 		prods.codigo =  vector_pv[i].verCodigoProducto();
 		prods.cantidad =  vector_pv[i].verCantidad();
+		
 		prods.precio=vector_pv[i].obtenerValor();
+		
 		strcpy(prods.nombre,vector_pv[i].verNombreProducto().c_str());
 		pS.pv.push_back(prods);
 	}
-	cout << pS.pv[0].nombre<<endl;
 	
 	fecha f;
 	f.fecha_actual();
