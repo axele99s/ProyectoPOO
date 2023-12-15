@@ -33,13 +33,11 @@ void registro_Ventas::crearBinario ( ) {
 		ventaBin.write(reinterpret_cast<char*>(&svr.n),sizeof(svr.n));
 		
 		for(int j=0;j<svr.n;j++) { 
-			prodsVenta prods_venta = svr_vector[i].pv[j];
-			
-			char nombre[30];
-			ventaBin.write(reinterpret_cast<char*>(&prods_venta.nombre),sizeof(&nombre));
+			prodsVenta prods_venta = svr.pv[j];
+			ventaBin.write(reinterpret_cast<char*>(&prods_venta.nombre),sizeof(prods_venta.nombre));
 			ventaBin.write(reinterpret_cast<char*>(&prods_venta.codigo),sizeof(prods_venta.codigo));
 			ventaBin.write(reinterpret_cast<char*>(&prods_venta.cantidad),sizeof(prods_venta.cantidad));
-			ventaBin.write(reinterpret_cast<char*>(&prods_venta.precio),sizeof(&prods_venta.precio));
+			ventaBin.write(reinterpret_cast<char*>(&prods_venta.precio),sizeof(prods_venta.precio));
 			
 		}
 	}
@@ -68,14 +66,12 @@ void registro_Ventas::cargarHistorialVentas ( ) {
 		ventasBin.read(reinterpret_cast<char*>(&vectorSVR.segundo),sizeof(vectorSVR.segundo));
 		ventasBin.read(reinterpret_cast<char*>(&vectorSVR.n),sizeof(vectorSVR.n));
 		
-		
 		for(int i=0;i<vectorSVR.n;i++) { 
 			prodsVenta prods_venta;
-			char nombre[30];
-			ventasBin.read(reinterpret_cast<char*>(&prods_venta.nombre),sizeof(&nombre));
+			ventasBin.read(reinterpret_cast<char*>(&prods_venta.nombre),sizeof(prods_venta.nombre));
 			ventasBin.read(reinterpret_cast<char*>(&prods_venta.codigo),sizeof(prods_venta.codigo));
 			ventasBin.read(reinterpret_cast<char*>(&prods_venta.cantidad),sizeof(prods_venta.cantidad));
-			ventasBin.read(reinterpret_cast<char*>(&prods_venta.precio),sizeof(&prods_venta.precio));
+			ventasBin.read(reinterpret_cast<char*>(&prods_venta.precio),sizeof(prods_venta.precio));
 			
 			vectorSVR.pv.push_back(prods_venta);
 		}
@@ -88,9 +84,6 @@ void registro_Ventas::cargarHistorialVentas ( ) {
 	}
 	
 	reverse(svr_vector.begin(),svr_vector.end());
-	
-	
-	
 	
 	
 }
@@ -110,27 +103,7 @@ void registro_Ventas::guardarVenta (vector<productoVenta> pv, string vendedor, i
 	
 	
 	crearBinario();
-//	ventaBin.write(reinterpret_cast<char*>(&svr.vendedor),sizeof(svr.vendedor));
-//	ventaBin.write(reinterpret_cast<char*>(&svr.cliente),sizeof(svr.cliente));
-//	ventaBin.write(reinterpret_cast<char*>(&svr.total),sizeof(svr.total));
-//	ventaBin.write(reinterpret_cast<char*>(&svr.nro_transaccion),sizeof(svr.nro_transaccion));
-//	
-//	
-//	
-//	ventaBin.write(reinterpret_cast<char*>(&svr.dia),sizeof(svr.dia));
-//	ventaBin.write(reinterpret_cast<char*>(&svr.mes),sizeof(svr.mes));
-//	ventaBin.write(reinterpret_cast<char*>(&svr.anio),sizeof(svr.anio));
-//	ventaBin.write(reinterpret_cast<char*>(&svr.hora),sizeof(svr.hora));
-//	ventaBin.write(reinterpret_cast<char*>(&svr.minuto),sizeof(svr.minuto));
-//	ventaBin.write(reinterpret_cast<char*>(&svr.segundo),sizeof(svr.segundo));
-//	ventaBin.write(reinterpret_cast<char*>(&svr.n),sizeof(svr.n));
-//	
-//	for(size_t i=0;i<pv.size();i++) { 
-//		ventaBin.write(reinterpret_cast<char*>(&svr.pv[i].nombre),sizeof(&svr.pv[i].nombre));
-//		ventaBin.write(reinterpret_cast<char*>(&svr.pv[i].codigo),sizeof(&svr.pv[i].codigo));
-//		ventaBin.write(reinterpret_cast<char*>(&svr.pv[i].cantidad),sizeof(&svr.pv[i].cantidad));
-//		ventaBin.write(reinterpret_cast<char*>(&svr.pv[i].precio),sizeof(&svr.pv[i].precio));
-//	}
+//
 }
 
 

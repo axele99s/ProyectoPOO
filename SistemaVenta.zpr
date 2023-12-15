@@ -15,15 +15,14 @@ tab_use_spaces=0
 explorer_path=.
 inspection_improving_template=wxString|>printf "%ls",${EXP}.m_impl._M_data()
 inherits_from=
-current_source=funcionesExtas.h
+current_source=registro_Ventas.cpp
 path_char=\
 [source]
 path=Application.cpp
 cursor=22:38
 [source]
 path=wProductosVendidos.cpp
-cursor=10:31
-open=true
+cursor=13:24
 [source]
 path=wxfb_project.cpp
 readonly=1
@@ -52,7 +51,8 @@ path=productoVenta.cpp
 cursor=23:7
 [source]
 path=registro_Ventas.cpp
-cursor=35:48
+cursor=87:1
+open=true
 [source]
 path=wAgregarUsuario.cpp
 cursor=74:31
@@ -70,7 +70,7 @@ path=wFiltroFecha.cpp
 cursor=24:26
 [source]
 path=wHistorialVentas.cpp
-cursor=30:21
+cursor=95:0
 [source]
 path=wActualizarProducto.cpp
 cursor=59:8
@@ -183,8 +183,7 @@ path=wRealizarVenta.h
 cursor=24:58
 [header]
 path=funcionesExtas.h
-cursor=48:26
-open=true
+cursor=74:18
 [header]
 path=wEmpleados.h
 cursor=9:6

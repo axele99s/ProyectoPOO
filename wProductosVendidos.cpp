@@ -9,10 +9,10 @@ wProductosVendidos::wProductosVendidos(wxWindow *parent,vector<prodsVenta> *pv,B
 	
 	for(size_t i=0;i<vec.size();i++) {  
 		prodsVenta vendidos = vec[i];
+		
 		grillaVendidos->SetCellValue(i,0,vendidos.nombre);
 		int pos = bp->verPosProducto(vendidos.codigo);
 		if( pos == -1){
-			
 			grillaVendidos->SetCellValue(i,4,"Descontinuado");
 		}
 		else {
