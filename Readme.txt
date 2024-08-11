@@ -2,11 +2,10 @@
 (esta es la version pre-final con algun que otro bug, la ultima version terminada la tengo que subir y se aprobo con 9 😎)
 Este es un proyecto que hice para la materia de POO de la UNL-FICH, es un sistema de ventas en general (para un negocio/tienda/local, sirve para todos).
 
-<h1>Sistema de LOGIN para usuarios del sistema </h1>
+<h1>Sistema de LOGIN para usuarios del sistema</h1>
  <ul>
   <li> Sistema de login para poder ingresar al sistema. Solamente pueden ingresar aquellas personas que tengan acceso al sistema.</li>
   <li> Tiene un guardado de datos (user y pass)</li>
-  
 </ul>
 
 <h1>Base de usuarios y clientes</h1>
