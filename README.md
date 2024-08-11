@@ -38,4 +38,6 @@ En si, cada producto tiene sus datos privados (los nombrados) y la base de produ
 * Sistema de devolucion (se elimina la venta del registro, esto hace que el stock del producto vuelta al estado anterior)
 
 
-<h2>Nota: Esta es la version pre-final con algun que otro bug, la ultima version terminada la tengo que subir sin ningun error y se aprobo con 9 😎 aunque la nota es irrelevante xd ).</h1>
+<h2>Nota 1: Esta es la version pre-final con algun que otro bug, la ultima version terminada la tengo que subir sin ningun error y se aprobo con 9 😎 aunque la nota es irrelevante xd ).</h2>
+<>
+<h2>Nota 2: los archivos que inician con la letra "w..." son pura y exclusivamente de wxWidgets, los que no tienen esa inicial son las clases encargadas de las ventas, usuarios, etc.</h2>
