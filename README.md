@@ -12,9 +12,9 @@ Este es un proyecto que hice para la materia de POO de la UNL-FICH, es un sistem
 <h1>Sistema de LOGIN para usuarios del sistema </h1>
 Como lo dice, sistema de login para poder ingresar al sistema. Solamente pueden ingresar aquellas personas que tengan acceso al sistema.
 * Tiene un guardado de datos (user y pass)
-** entrar automaticamente?
+** entrar automaticamente si lo desea el que ingresa
 
-<h1>Base de productos (En proceso)</h1>
+<h1>Base de productos </h1>
 
 <h3>Base de productos, no hay mucho que decir es una "base de datos" de productos. </h3>
 Cada producto tiene las distintas caraceteristicas: 
@@ -31,7 +31,7 @@ En si, cada producto tiene sus datos privados (los nombrados) y la base de produ
 ** Agregar stock de x producto.
 <h1>VENTAS</h1>
 
-* Esta sera la clase encargada de realizar todo el sistema de la venta, teniendo en cuenta el usuario(empleado de la tienda), cliente (encargado de la venta).
+* Esta es la clase encargada de realizar todo el sistema de la venta, teniendo en cuenta el usuario(empleado de la tienda), cliente (encargado de la venta).
 * Cada venta tendra registrada una fecha, hora, el vendedor que realizo la operacion, los productos vendidos y el precio de los mismos. En caso de que el cliente este registrado en el sistema apareceran sus datos y sino aparecera como "cliente final?".
 * En caso de no haber registrado una venta (si fue una venta y el empleado decidio no registrarla) se podra agregar manualmente (esto reduce el stock del producto y hace todos los chiches necesarios)
 * En caso de haber hecho una venta erronea, se podra eliminar(se elimina la venta del registro, esto hace que el stock del producto vuelta al estado anterior) <--- tambien sirve como devolucion de un producto!
