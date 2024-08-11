@@ -1,4 +1,5 @@
 # Project-POO SISTEMA DE VENTAS
+(esta es la version pre-final con algun que otro bug, la ultima version terminada la tengo que subir y se aprobo con 9 😎)
 Este es un proyecto que hice para la materia de POO de la UNL-FICH, es un sistema de ventas en general (para un negocio/tienda/local, sirve para todos).
 
 <h1>Sistema de LOGIN para usuarios del sistema </h1>
@@ -36,18 +37,17 @@ Cada producto tiene las distintas caraceteristicas:
 
 <h1>VENTAS</h1>
 
-* Esta sera la clase encargada de realizar todo el sistema de la venta, teniendo en cuenta el usuario(empleado de la tienda/jefe), cliente (cliente final o si se encuentra registrado).
+* Esta es la clase encargada de realizar todo el sistema de la venta, teniendo en cuenta el usuario(empleado de la tienda/jefe), cliente (cliente final o si se encuentra registrado).
 * Cada venta tendra registrada una fecha, hora, el vendedor que realizo la operacion, los productos vendidos. En caso de que el cliente este registrado en el sistema apareceran sus datos y sino aparecera como "cliente final".
 * En caso de no haber registrado una venta (si fue una venta y el empleado decidio no registrarla) se podra agregar manualmente (esto reduce el stock del producto y hace todos los chiches necesarios)
-* En caso de haber hecho una venta erronea, se podra eliminar.
+* En caso de haber hecho una venta erronea, se podra eliminar y se repone el stock correspondiente.
 
 
-<h1>Nota: Terminado?.</h1>
 
-
--Ver la base de datos el "cambiar tipo de usuario (0 o 1)" y tambien el VerUsuario que le llega un int o un usuario(clase). 
--Hacer mas pruebas de login, etc
-- En el login que tenga una opcion de guardar datos (asi se logea automaticamente), tambien que haya una opcion para desactivar el logeo
+<h1>Login</h1>
+- Sistema de logeo para los admin/empleados
+- Guardar ultimo ingreso (para asi no tener que ingresar todo el tiempo user y pass)
+- Cerrar la sesion actual, etc, etc.
 
 
  <ul>
